@@ -1,0 +1,63 @@
+@use '../../../scss/variables' as var;
+
+.event {
+  // position: relative;
+  padding-left: .7em;
+  /* padding-bottom: 1em; */
+  /* margin-bottom: .3em; */
+
+  &__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: .8em 1.5em;
+    border-radius: 2em;
+  
+    color: var.$color--grey-dark;
+
+    background-color: var.$color--grey-light;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+  
+}// .event
+
+
+///////////////////////////////////
+// EVENT COLORS
+///////////////////////////////////
+.event--orange {
+  .event__header {
+    color: var.$color-primary--orange-dark;
+    background-color: var.$color-primary--orange-light;
+  }
+}
+
+.event--green {
+  .event__header {
+    color: var.$color--green-dark;
+    background-color: var.$color--green-light;
+  }
+}
+
+.event--blue {
+  .event__header {
+    color: var.$color--blue-dark;
+    background-color: var.$color--blue-light;
+  }
+}
+
+.event--red {
+  .event__header {
+    color: var.$color--red-dark;
+    background-color: var.$color--red-light;
+  }
+}

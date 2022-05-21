@@ -1,4 +1,26 @@
 
 .timeline {
+  // height: 100%;
+  scroll-behavior: auto;
+  width: 100%;
+  background: #fff;
+  // padding: 0 0 0 calc(.5em + 3rem);
+
+  &__content {  
+    // height: 100%;
+
+    padding: 10em 0 40em 0;
+
+    // height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: .3em;
+
+    margin: 0 0 0 calc(.5em + 3rem);
+
+    border-left: 3px dashed #c8c8c8;
+
+  }
+  
   
 }

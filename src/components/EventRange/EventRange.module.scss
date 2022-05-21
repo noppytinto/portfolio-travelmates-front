@@ -1,0 +1,26 @@
+@use '../../scss/variables' as var;
+
+.event-range {
+  height: 200px;
+  margin-top: 3rem;
+  position: relative;
+  border-left: 3px solid var.$color-primary--orange;
+  margin-left: -3px;
+
+
+  &__header {
+    position: relative;
+    top: 0;
+    transform: translateY(-50%);
+  
+  }
+
+  &__time {
+    position: absolute;
+    left: -3.5rem;
+    top: 0;
+    transform: translateY(-50%);
+
+  }
+
+}// .event-range

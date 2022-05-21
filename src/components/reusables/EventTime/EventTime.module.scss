@@ -1,0 +1,30 @@
+@use '../../../scss/variables' as var;
+
+.event-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .35em;
+
+
+  &__value {
+    font-weight: bold;
+  }
+
+  &__circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+
+    // position: absolute;
+    // right: -1.3rem;
+    // top: 0;
+    // z-index: 1;
+
+    background: var.$color-primary--orange-light;
+    border: 2px solid var.$color-primary--orange;
+  }
+
+
+}
+
