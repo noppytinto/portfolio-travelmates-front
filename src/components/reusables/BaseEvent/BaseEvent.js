@@ -1,7 +1,7 @@
-import styles from './Event.module.scss';
+import styles from './BaseEvent.module.scss';
 
 
-function Event(props) {
+function BaseEvent(props) {
     const givenClasses = props.className;
     const color = props.color;
     const children = props.children;
@@ -24,7 +24,9 @@ function Event(props) {
             break;
     }
 
-
+    ///////////////////////////////////
+    // JSX
+    ///////////////////////////////////
     return (
         <div className={classesEvent}>
             <div className={styles['event__content']}>
@@ -41,6 +43,6 @@ function Event(props) {
             </div>
         </div>
     );
-}// Event
+}// BaseEvent
 
-export default Event;
+export default BaseEvent;

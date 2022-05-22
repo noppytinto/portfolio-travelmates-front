@@ -1,8 +1,8 @@
-@use '../../scss/variables' as var;
+@use '../../../scss/variables' as var;
 
 .event-range {
   height: 200px;
-  margin-top: 3rem;
+  margin-top: 2rem;
   position: relative;
   border-left: 3px solid var.$color-primary--orange;
   margin-left: -3px;

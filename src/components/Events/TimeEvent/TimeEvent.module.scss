@@ -1,0 +1,19 @@
+@use '../../../scss/variables' as var;
+
+.time-event {
+  position: relative;
+
+
+  &__header {
+  
+  }
+
+  &__time {
+    position: absolute;
+    left: -3.5rem;
+    top: 50%;
+
+    transform: translateY(-50%);
+  }
+
+}// .event-range

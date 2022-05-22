@@ -2,6 +2,8 @@ import styles from './EventTime.module.scss';
 
 
 function EventTime(props) {
+    const withIndicator = props.withIndicator ?? false;
+    const withAMPM = props.withAMPM ?? false;
     const color = props.color;
     const timeValue = props.children;
     const givenClasses = props.className;
@@ -13,7 +15,7 @@ function EventTime(props) {
             <p className={styles['event-time__value']}>
                 {timeValue}
             </p>
-            <span className={styles['event-time__circle']}></span>
+            {withIndicator && <span className={styles['event-time__circle']}></span>}
         </div>
     );
 }// EventTime

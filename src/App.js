@@ -1,14 +1,18 @@
 import logo from './logo.svg';
 import './App.scss';
-
+//
 import { Route, Routes, Navigate } from 'react-router-dom';
 import * as assets from './utils/assets-manager';
-
 // pages
 import Timeline from './pages/Timeline/Timeline';
 
 
 function App() {
+
+
+    ///////////////////////////////////
+    // JSX
+    ///////////////////////////////////
     return (
         <div className="App">
             <Routes>
@@ -38,6 +42,6 @@ function App() {
             </Routes>
         </div>
     );
-}
+}// App
 
 export default App;
