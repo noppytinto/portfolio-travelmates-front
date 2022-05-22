@@ -5,7 +5,7 @@ import styles from './TimeEvent.module.scss';
 
 function TimeEvent(props) {
     const color = props.color;
-    const title = props.children;
+    const title = props.title;
 
 
     let classesEvent = `${styles['time-event']} `;
@@ -21,7 +21,8 @@ function TimeEvent(props) {
                        withIndicator={true}> 06:00 </EventTime>
 
             <BaseEvent className={styles['time-event__header']} 
-                   color={color}>{title}</BaseEvent>
+                       title={title}
+                       color={color} />
 
         </div>
     );

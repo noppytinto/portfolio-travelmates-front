@@ -4,7 +4,7 @@ import styles from './BaseEvent.module.scss';
 function BaseEvent(props) {
     const givenClasses = props.className;
     const color = props.color;
-    const children = props.children;
+    const title = props.title;
 
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
@@ -34,7 +34,7 @@ function BaseEvent(props) {
                 <header className={styles['event__header']}>
 
                     {/* <div className="event__icon"></div> */}
-                    <p className={styles['event__title']}>{children}</p>
+                    <p className={styles['event__title']}>{title}</p>
 
                     {/* <ul className="event__icons"></ul>
                     <div className="event__priority"></div> */}

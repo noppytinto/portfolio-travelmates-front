@@ -9,7 +9,10 @@ function RangeEvent(props) {
     const title = props.title;
 
 
-    let classesEvent = `${styles['event-range']} `;
+    let classesEvent = `${styles['range-event']} `;
+    let classesEventTime = `${styles['range-event__time']} `;
+    let classesEventTimeStart = `${classesEventTime} ${styles['range-event__time--start']} `;
+    let classesEventTimeEnd = `${classesEventTime} ${styles['range-event__time--end']} `;
 
     
     ///////////////////////////////////
@@ -17,16 +20,21 @@ function RangeEvent(props) {
     ///////////////////////////////////
     return (
         <div className={classesEvent}>
-            <EventTime className={styles['event-range__time']} 
-                       withAMPM={true}
-                       withIndicator={true}> 06:00 </EventTime>
+            <EventTime className={classesEventTimeStart} 
+                       withAMPM
+                       withIndicator> 06:00 </EventTime>
 
-            <BaseEvent className={styles['event-range__header']} 
-                   color={color}>{title}</BaseEvent>
+            <BaseEvent className={styles['range-event__header']} 
+                       title={title} 
+                       color={color} />
 
-            <ul className={styles['event-rage__children']}>
+            <ul className={styles['range-event__children']}>
                 {children}
             </ul>
+
+            <EventTime className={classesEventTimeEnd} 
+                       withAMPM
+                       withIndicator> 07:30 </EventTime>
         </div>
     );
 }// RangeEvent
