@@ -1,0 +1,21 @@
+.child-event {
+  padding-left: .75rem;
+  display: flex;
+  align-items: center;
+  
+
+
+  &__header {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  &__time {
+    margin-right: -.3em;
+  }
+
+  &__time--hidden {
+    visibility: hidden;
+  }
+
+}// .children-event

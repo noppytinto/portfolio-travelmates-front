@@ -2,7 +2,7 @@
 
 .event-time {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   gap: .35em;
 
@@ -10,6 +10,8 @@
   &__value {
     font-weight: bold;
   }
+
+  &__value--grey {color: var.$color--grey;}
 
   &__circle {
     width: 15px;

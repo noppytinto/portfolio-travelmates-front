@@ -2,18 +2,18 @@
 
 .time-event {
   position: relative;
+  display: flex;
+  align-items: center;
 
 
   &__header {
-  
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 
   &__time {
     position: absolute;
     left: -3.5rem;
-    top: 50%;
-
-    transform: translateY(-50%);
   }
 
 }// .event-range
