@@ -22,12 +22,21 @@
     color: var.$color--grey;
 
     background-color: var.$color--grey-light;
+    transition: all .2s;
   }
+
+  &__header:hover {
+    transform: scale(1.01);
+    box-shadow: .15em .15em .5em 0 rgba($color: #000000, $alpha: .35);
+  }
+  
 
   &__title {
     font-weight: bold;
   }
-  
+
+
+
 }// .event
 
 
