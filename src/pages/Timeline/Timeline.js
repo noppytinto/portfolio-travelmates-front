@@ -14,9 +14,11 @@ function Timeline(props) {
     return (
         <div className={styles['timeline']}>
             <ul className={styles['timeline__content']}>
-                <li><TimeEvent title="time event" color="orange" /></li>
-                <li><BaseEvent title="timeless event" color="orange" /></li>
-                <li><RangeEvent title="range event" color="orange" ></RangeEvent></li>
+                <li><TimeEvent title="time event" color="blue" /></li>
+                <li><BaseEvent title="timeless event" color="green" /></li>
+                <li><RangeEvent title="range event" color="orange" >
+
+                    </RangeEvent></li>
             </ul>
 
         </div>

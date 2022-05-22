@@ -6,7 +6,7 @@
   position: relative;
   margin-left: -3px;
   
-  border-left: 3px solid var.$color-primary--orange;
+  border-left: 3px solid var.$color--grey-dark;
 
 
   &__header {
@@ -36,4 +36,11 @@
     // height: 100%;
   }
 
+
+  &--orange {border-left: 3px solid var.$color-primary--orange;}
+  &--blue {border-left: 3px solid var.$color--blue;}
+  &--green {border-left: 3px solid var.$color--green;}
+  &--red {border-left: 3px solid var.$color--red;}
+
 }// .range-event
+

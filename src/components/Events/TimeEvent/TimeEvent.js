@@ -18,7 +18,8 @@ function TimeEvent(props) {
         <div className={classesEvent}>
             <EventTime className={styles['time-event__time']} 
                        withAMPM={false}
-                       withIndicator={true}> 06:00 </EventTime>
+                       withIndicator={true}
+                       color={color}> 06:00 </EventTime>
 
             <BaseEvent className={styles['time-event__header']} 
                        title={title}
