@@ -20,7 +20,8 @@ function TimeEvent(props) {
             <EventTime className={styles['time-event__time']} 
                        withAMPM={false}
                        withIndicator={true}
-                       color={color}> {starts} </EventTime>
+                       indicatorColor={color}
+                       value={starts} />
 
             <BaseEvent className={styles['time-event__header']} 
                        title={title}

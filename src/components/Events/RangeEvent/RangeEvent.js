@@ -41,7 +41,8 @@ function RangeEvent(props) {
             <EventTime className={classesEventTimeStart} 
                        withAMPM
                        withIndicator
-                       color={color}> {starts} </EventTime>
+                       indicatorColor={color}
+                       value={starts} /> 
 
             <BaseEvent className={styles['range-event__header']} 
                        title={title} 
@@ -54,7 +55,8 @@ function RangeEvent(props) {
             <EventTime className={classesEventTimeEnd} 
                        withAMPM
                        withIndicator
-                       color={color}> {ends} </EventTime>
+                       indicatorColor={color}
+                       value={ends} />
         </div>
     );
 }// RangeEvent

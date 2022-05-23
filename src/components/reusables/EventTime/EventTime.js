@@ -4,15 +4,15 @@ import styles from './EventTime.module.scss';
 function EventTime(props) {
     const withIndicator = props.withIndicator ?? false;
     const withAMPM = props.withAMPM ?? false;
-    const color = props.color;
+    const indicatorColor = props.indicatorColor;
     const valueTint = props.valueTint;
-    const timeValue = props.children;
+    const timeValue = props.value;
     const givenClasses = props.className;
 
     let classesEventTime = `${styles['event-time']} ${givenClasses} `;
 
     let classesCircle = `${styles['event-time__circle']} `;
-    switch (color) {
+    switch (indicatorColor) {
         case 'orange': 
             classesCircle += styles['event-time__circle--orange'];
             break;
@@ -30,7 +30,7 @@ function EventTime(props) {
     let classesValue = `${styles['event-time__value']} `;
     switch (valueTint) {
         case 'grey': 
-        classesValue += styles['event-time__value--grey'];
+            classesValue += styles['event-time__value--grey'];
             break;
     }
 

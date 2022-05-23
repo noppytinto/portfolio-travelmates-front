@@ -20,7 +20,8 @@ function ChildEvent(props) {
         <div className={classesChildEvent}>
             <EventTime className={classesTime}
                        withAMPM={false}
-                       valueTint="grey"> {time} </EventTime>
+                       valueTint="grey"
+                       value={time} />
 
             <BaseEvent className={styles['child-event__header']}
                        title={title} />
