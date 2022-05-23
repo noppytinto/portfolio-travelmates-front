@@ -1,10 +1,10 @@
 import styles from './BaseEvent.module.scss';
-
+import PropTypes from 'prop-types';
 
 function BaseEvent(props) {
     const givenClasses = props.className;
-    const color = props.color;
-    const title = props.title;
+    const color = props.color ?? '';
+    const title = props.title ?? '';
 
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
@@ -44,5 +44,10 @@ function BaseEvent(props) {
         </div>
     );
 }// BaseEvent
+
+BaseEvent.propTypes = {
+    color: PropTypes.oneOf(['', 'orange', 'blue', 'green', 'red']),
+    title: PropTypes.string,
+}
 
 export default BaseEvent;
