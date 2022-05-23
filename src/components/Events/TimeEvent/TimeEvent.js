@@ -1,7 +1,7 @@
+import styles from './TimeEvent.module.scss';
 import BaseEvent from '../../reusables/BaseEvent/BaseEvent';
 import EventTime from '../../reusables/EventTime/EventTime';
-import styles from './TimeEvent.module.scss';
-
+import PropTypes from 'prop-types';
 
 function TimeEvent(props) {
     const color = props.color;
@@ -30,5 +30,11 @@ function TimeEvent(props) {
         </div>
     );
 }// TimeEvent
+
+TimeEvent.propTypes = {
+    color: PropTypes.oneOf(['', 'orange', 'blue', 'green', 'red']),
+    title: PropTypes.string,
+    starts: PropTypes.instanceOf(Date),
+}
 
 export default TimeEvent;

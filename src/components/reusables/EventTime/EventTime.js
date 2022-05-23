@@ -1,13 +1,18 @@
 import styles from './EventTime.module.scss';
+import PropTypes from 'prop-types';
+import RangeEvent from "../../Events/RangeEvent/RangeEvent";
 
 
 function EventTime(props) {
+    const givenClasses = props.className;
+
     const withIndicator = props.withIndicator ?? false;
     const withAMPM = props.withAMPM ?? false;
     const indicatorColor = props.indicatorColor;
     const valueTint = props.valueTint;
     const timeValue = props.value;
-    const givenClasses = props.className;
+    
+    // console.log('TIMEVALUE:', timeValue);
 
     let classesEventTime = `${styles['event-time']} ${givenClasses} `;
 
@@ -34,17 +39,37 @@ function EventTime(props) {
             break;
     }
 
+    function padTo2Digits(num) {
+        return String(num).padStart(2, '0');
+    }
+
+    let hoursAndMinutes = '';
+    if (timeValue) {
+        const date = new Date(timeValue);
+        hoursAndMinutes =
+            padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes());
+    }
+
+
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
         <div className={classesEventTime}>
             <p className={classesValue}>
-                {timeValue}
+                {hoursAndMinutes}
             </p>
             {withIndicator && <span className={classesCircle}></span>}
         </div>
     );
 }// EventTime
+
+RangeEvent.propTypes = {
+    timeValue: PropTypes.instanceOf(Date),
+    withIndicator: PropTypes.bool,
+    withAMPM: PropTypes.bool,
+    indicatorColor: PropTypes.oneOf(['', 'orange', 'blue', 'green', 'red']),
+    valueTint: PropTypes.oneOf(['', 'grey']),
+}
 
 export default EventTime;

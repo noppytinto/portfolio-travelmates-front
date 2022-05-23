@@ -2,15 +2,15 @@ import BaseEvent from '../../reusables/BaseEvent/BaseEvent';
 import EventTime from '../../reusables/EventTime/EventTime';
 import styles from './RangeEvent.module.scss';
 import { v4 as uuidv4 } from 'uuid';
-
+import PropTypes from 'prop-types';
 
 function RangeEvent(props) {
-    const color = props.color;
     const children = props.children;
+
+    const color = props.color;
     const title = props.title;
     const starts = props.starts;
     const ends = props.ends;
-
 
     let classesEventTime = `${styles['range-event__time']} `;
     let classesEventTimeStart = `${classesEventTime} ${styles['range-event__time--start']} `;
@@ -49,7 +49,7 @@ function RangeEvent(props) {
                        color={color} />
 
             <ul className={styles['range-event__children']}>
-                {children.map(event => <li key={uuidv4()}>{event}</li>)}
+                {children && children.map(event => <li key={uuidv4()}>{event}</li>)}
             </ul>
 
             <EventTime className={classesEventTimeEnd} 
@@ -60,5 +60,12 @@ function RangeEvent(props) {
         </div>
     );
 }// RangeEvent
+
+RangeEvent.propTypes = {
+    color: PropTypes.oneOf(['', 'orange', 'blue', 'green', 'red']),
+    title: PropTypes.string,
+    starts: PropTypes.instanceOf(Date),
+    ends: PropTypes.instanceOf(Date),
+}
 
 export default RangeEvent;

@@ -6,11 +6,10 @@
   background: #fff;
   // padding: 0 0 0 calc(.5em + 3rem);
 
+  
   &__content {  
     // height: 100%;
-
-    padding: 10em 0 40em 0;
-
+    padding: 3em 0 50em 0;
     // height: 200px;
     display: flex;
     flex-direction: column;
@@ -19,8 +18,6 @@
     margin: 0 0 0 calc(.5em + 3rem);
 
     border-left: 3px dashed #c8c8c8;
-
   }
   
-  
-}
+}// .timeline

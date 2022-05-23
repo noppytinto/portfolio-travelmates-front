@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 function BaseEvent(props) {
     const givenClasses = props.className;
+    
     const color = props.color ?? '';
     const title = props.title ?? '';
 

@@ -6,7 +6,7 @@ export default {
   * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
   * to learn how to generate automatic titles
   */
-  title: 'Design System/Reusable/BaseEvent',
+  title: 'Events/BaseEvent',
   component: BaseEvent,
   argTypes: {
     color: {
@@ -16,9 +16,15 @@ export default {
   },
 };
 
+// export const Event = () => <BaseEvent title="base event"></BaseEvent>;
+
 //👇 We create a “template” of how args map to rendering
 const Template = (args) => <BaseEvent {...args} />;
 
+
+///////////////////////////
+// STORIES
+///////////////////////////
 export const Default = Template.bind({});
 Default.args = {
     title: 'default base event',
@@ -47,5 +53,3 @@ Red.args = {
     title: 'red base event',
     color: 'red',
 };
-
-// export const Event = () => <BaseEvent title="base event"></BaseEvent>;
