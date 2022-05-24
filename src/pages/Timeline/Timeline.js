@@ -1,12 +1,12 @@
 import styles from './Timeline.module.scss';
 import { v4 as uuidv4 } from 'uuid';
-import ChildEvent from '../../components/Events/RangeEvent/ChildEvent/ChildEvent';
-import RangeEvent from '../../components/Events/RangeEvent/RangeEvent';
-import TimeEvent from '../../components/Events/TimeEvent/TimeEvent';
-import BaseEvent from '../../components/reusables/BaseEvent/BaseEvent';
+// import ChildEvent from '../../components/Events/RangeEvent/ChildEvent/ChildEvent';
+// import RangeEvent from '../../components/Events/RangeEvent/RangeEvent';
+// import TimeEvent from '../../components/Events/TimeEvent/TimeEvent';
+// import BaseEvent from '../../components/reusables/BaseEvent/BaseEvent';
 import TimelineSlot from "../../components/reusables/TimelineSlot/TimelineSlot";
 import EventBuilder from "../../models/EventBuilder";
-import EventSlot from "../../components/reusables/EventSlot/EventSlot";
+// import EventSlot from "../../components/reusables/EventSlot/EventSlot";
 
 
 function Timeline(props) {
