@@ -38,6 +38,8 @@ function EventTime(props) {
             classesValue += styles['event-time__value--grey'];
         case 'grey-light':
             classesValue += styles['event-time__value--grey-light'];
+        case 'grey-light-2':
+            classesValue += styles['event-time__value--grey-light-2'];
             break;
     }
 

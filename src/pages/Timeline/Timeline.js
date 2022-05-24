@@ -11,59 +11,64 @@ import EventSlot from "../../components/reusables/EventSlot/EventSlot";
 
 function Timeline(props) {
     const event_1 = new EventBuilder('event 1')
-        .setStarts(new Date(1970, 0, 1, 0, 1))
+        .setStarts(new Date(1970, 0, 1, 0, 0))
+        .build();
+
+    const event_2 = new EventBuilder('event 2')
+        .setStarts(new Date(1970, 0, 1, 1, 12))
         .build();
 
     const events = [];
     events.push(event_1);
+    events.push(event_2);
 
 
+    function createSlots(timeSpan = 30) {
+        const addMinutes = (date, minutes) => {
+            return new Date(date.getTime() + minutes*60000);
+        }
 
-    const slot_0000 = {
-        index: 0,
-        starts: new Date(1970, 0, 1, 0, 0),
-        eventSlots: [
+        const slots = [];
+        let starts = new Date(1970, 0, 1, 0, 0);
 
-        ],
+        for (let i=0; i<48; i++) {
+            const newSlot = {
+                index: i,
+                starts: starts,
+                events: [],
+            }
+
+            slots.push(newSlot);
+            starts = addMinutes(starts, timeSpan);
+        }
+
+        return slots;
     }
+    //
+    const timelineSlots = createSlots();
 
-    const slot_0030 = {
-        index: 1,
-        starts: new Date(1970, 0, 1, 0, 30),
-        eventSlots: [],
-    }
 
-    const slot_0100 = {
-        index: 2,
-        starts: new Date(1970, 0, 1, 1, 0),
-        eventSlots: [],
-    }
-
-    const timelineSlots = [
-        slot_0000,
-        slot_0030,
-        slot_0100,
-    ];
-
+    // for each event, push in the corresponding timeline slot
     function setEvents(timelineSlots, events) {
+        // console.log(events);
+
         events.forEach(event => {
             // console.log(event);
-            timelineSlots.forEach(slot => {
-                if (event.starts >= slot.starts) {
-                    slot.eventSlots.push(event);
+
+            for (let i=0; i<timelineSlots.length; i++) {
+                // console.log('----------------------------------------------');
+                if (event.starts.getTime() < timelineSlots[i].starts.getTime()) {
+                    // console.log('pushing event', event);
+                    // console.log('into', timelineSlots[i-1]);
+                    timelineSlots[i-1].events.push(event);
+                    return;
                 }
-            })
+            }
         })
     }
-
+    //
     setEvents(timelineSlots, events);
-
-    console.log(timelineSlots);
-    /*
-             <ul className={styles['timeline__content']}>
-                {slots.map(slot => <li key={slot.index}>{slot}</li>)}
-            </ul>
-    */
+    // console.log(timelineSlots);
 
     // const timeEventDate = new Date(null, null, null, 5, 30);
     // const rangeEventStartsDate = new Date(null, null, null, 7, 0);
@@ -91,7 +96,7 @@ function Timeline(props) {
             <ul className={styles['timeline__content']}>
                 {/*{events.map(event => <li key={uuidv4()}>{event}</li>)}*/}
                 {timelineSlots.map(slot => <li key={slot.index}>
-                    <TimelineSlot starts={slot.starts} events={slot.eventSlots} />
+                    <TimelineSlot starts={slot.starts} events={slot.events} />
                 </li>)}
             </ul>
 

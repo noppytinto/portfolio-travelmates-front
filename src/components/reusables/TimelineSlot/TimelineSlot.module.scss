@@ -1,13 +1,25 @@
+@use '../../../scss/variables' as var;
+
 .timeline-slot {
   height: 100px;
   position: relative;
   display: flex;
   flex-direction: column;
   
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var.$color--grey-light-2;
+  
   &__time {
     position: absolute;
     left: -3.5rem;
     transform: translateY(-50%);
   
+  }
+  
+  &__event--header {
+    position: relative;
+    top: 0;
+    transform: translateY(-50%);
   }
 }
