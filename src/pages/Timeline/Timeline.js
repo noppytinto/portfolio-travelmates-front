@@ -13,14 +13,28 @@ function Timeline(props) {
     const event_1 = new EventBuilder('event 1')
         .setStarts(new Date(1970, 0, 1, 0, 0))
         .build();
-
     const event_2 = new EventBuilder('event 2')
+        .setStarts(new Date(1970, 0, 1, 0, 10))
+        .build();
+
+    const event_3 = new EventBuilder('event 3')
+        .setStarts(new Date(1970, 0, 1, 0, 15))
+        .build();
+
+    const event_4 = new EventBuilder('event 4')
+        .setStarts(new Date(1970, 0, 1, 0, 35))
+        .build();
+
+    const event_5 = new EventBuilder('event 5')
         .setStarts(new Date(1970, 0, 1, 1, 12))
         .build();
 
     const events = [];
     events.push(event_1);
     events.push(event_2);
+    events.push(event_3);
+    events.push(event_4);
+    events.push(event_5);
 
 
     function createSlots(timeSpan = 30) {

@@ -1,10 +1,9 @@
 @use '../../../scss/variables' as var;
 
 .timeline-slot {
-  height: 100px;
+  min-height: 100px;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  padding: 0 0 2em;
   
   border-top-width: 1px;
   border-top-style: solid;
@@ -17,9 +16,16 @@
   
   }
   
+  &__events {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
   &__event--header {
     position: relative;
     top: 0;
     transform: translateY(-50%);
+    margin-bottom: -1.5em;
   }
 }

@@ -26,7 +26,7 @@ function TimelineSlot(props) {
                         value={starts}
                         valueTint="grey-light-2" />
 
-            <ul>
+            <ul className={styles['timeline-slot__events']}>
                 {
                     events.map(event => {
                         if (event.starts.getTime() === starts.getTime()) {
