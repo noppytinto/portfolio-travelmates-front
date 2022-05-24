@@ -8,7 +8,6 @@ function TimeEvent(props) {
     const title = props.title;
     const starts = props.starts;
 
-
     let classesEvent = `${styles['time-event']} `;
 
     

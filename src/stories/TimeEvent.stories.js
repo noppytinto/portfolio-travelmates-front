@@ -1,13 +1,13 @@
 import React from 'react';
-import RangeEvent from './RangeEvent';
+import TimeEvent from '../components/Events/TimeEvent/TimeEvent';
 
 export default {
     /* 👇 The title prop is optional.
     * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
     * to learn how to generate automatic titles
     */
-    title: 'Events/RangeEvent',
-    component: RangeEvent,
+    title: 'Components/Events/TimeEvent',
+    component: TimeEvent,
     argTypes: {
         color: {
             options: ['default', 'orange', 'blue', 'red', 'green'],
@@ -16,15 +16,12 @@ export default {
         starts: {
             control: { type: 'date' },
         },
-        ends: {
-            control: { type: 'date' },
-        },
     },
 };
 
 // export const Event = () => <BaseEvent title="base event"></BaseEvent>;
 //👇 We create a “template” of how args map to rendering
-const Template = (args) => <RangeEvent {...args} />;
+const Template = (args) => <TimeEvent {...args} />;
 
 
 ///////////////////////////
@@ -33,17 +30,11 @@ const Template = (args) => <RangeEvent {...args} />;
 export const Default = Template.bind({});
 Default.args = {
     color: '',
-    title: 'range event',
+    title: 'time event',
     starts: new Date(
         (new Date()).getFullYear(),
         (new Date()).getMonth(),
         (new Date()).getDay(),
         6,
         30),
-    ends: new Date(
-        (new Date()).getFullYear(),
-        (new Date()).getMonth(),
-        (new Date()).getDay(),
-        11,
-        0),
 };

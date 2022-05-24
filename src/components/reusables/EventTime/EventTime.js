@@ -36,6 +36,8 @@ function EventTime(props) {
     switch (valueTint) {
         case 'grey': 
             classesValue += styles['event-time__value--grey'];
+        case 'grey-light':
+            classesValue += styles['event-time__value--grey-light'];
             break;
     }
 
@@ -43,12 +45,13 @@ function EventTime(props) {
         return String(num).padStart(2, '0');
     }
 
-    let hoursAndMinutes = '';
+    let hoursAndMinutes = '99:99';
     if (timeValue) {
         const date = new Date(timeValue);
         hoursAndMinutes =
             padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes());
     }
+
 
 
     ///////////////////////////////////

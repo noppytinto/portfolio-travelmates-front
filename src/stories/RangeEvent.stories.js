@@ -1,31 +1,30 @@
 import React from 'react';
-import EventTime from './EventTime';
+import RangeEvent from '../components/Events/RangeEvent/RangeEvent';
 
 export default {
     /* 👇 The title prop is optional.
     * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
     * to learn how to generate automatic titles
     */
-    title: 'Time',
-    component: EventTime,
+    title: 'Components/Events/RangeEvent',
+    component: RangeEvent,
     argTypes: {
-        value: {
-            control: {type: 'date'},
-        },
-        indicatorColor: {
+        color: {
             options: ['default', 'orange', 'blue', 'red', 'green'],
-            control: {type: 'radio'},
+            control: { type: 'radio' },
         },
-        valueTint: {
-            options: ['default', 'grey'],
-            control: {type: 'radio'},
+        starts: {
+            control: { type: 'date' },
+        },
+        ends: {
+            control: { type: 'date' },
         },
     },
 };
 
 // export const Event = () => <BaseEvent title="base event"></BaseEvent>;
 //👇 We create a “template” of how args map to rendering
-const Template = (args) => <EventTime {...args} />;
+const Template = (args) => <RangeEvent {...args} />;
 
 
 ///////////////////////////
@@ -33,13 +32,18 @@ const Template = (args) => <EventTime {...args} />;
 ///////////////////////////
 export const Default = Template.bind({});
 Default.args = {
-    withIndicator: false,
-    withAMPM: false,
-    value: new Date(
+    color: '',
+    title: 'range event',
+    starts: new Date(
         (new Date()).getFullYear(),
         (new Date()).getMonth(),
         (new Date()).getDay(),
         6,
-        30
-    ),
+        30),
+    ends: new Date(
+        (new Date()).getFullYear(),
+        (new Date()).getMonth(),
+        (new Date()).getDay(),
+        11,
+        0),
 };
