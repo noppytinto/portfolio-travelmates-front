@@ -1,7 +1,7 @@
 import '../styles/global.scss';
 import { StyledEngineProvider } from '@mui/material';
 import { Provider } from 'react-redux';
-import mainStore from '../src/redux/main-store';
+import mainStore from '../redux/main-store';
 import Head from 'next/head';
 
 // for sharing layouts

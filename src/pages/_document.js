@@ -13,8 +13,8 @@ function Document() {
         {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
         <meta name="description" content="Travel Planner app" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/logo192.png" />
-        <link rel="manifest" href="/manifest.json" />
+        {/* <link rel="apple-touch-icon" href="/logo192.png" /> */}
+        {/* <link rel="manifest" href="/manifest.json" /> */}
       </Head>
       <body>
         <Main />
