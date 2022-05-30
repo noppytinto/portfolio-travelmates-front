@@ -2,7 +2,7 @@ const nextConfig = {
     /* config options here */
     reactStrictMode: true,
     target: "serverless", //for netlify
-    distDir: 'build',
+    distDir: '.next',
 }
 
 module.exports = nextConfig
