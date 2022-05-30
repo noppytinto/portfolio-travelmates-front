@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 // import RangeEvent from '../../components/Events/RangeEvent/RangeEvent';
 // import TimeEvent from '../../components/Events/TimeEvent/TimeEvent';
 // import BaseEvent from '../../components/reusables/BaseEvent/BaseEvent';
-import TimelineSlot from "../../components/reusables/TimelineSlot/TimelineSlot";
-import EventBuilder from "../../models/EventBuilder";
+import TimelineSlot from "../../src/components/reusables/TimelineSlot/TimelineSlot";
+import EventBuilder from "../../src/models/EventBuilder";
 // import EventSlot from "../../components/reusables/EventSlot/EventSlot";
 
 
