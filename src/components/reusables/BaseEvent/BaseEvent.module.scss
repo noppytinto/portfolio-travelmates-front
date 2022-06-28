@@ -1,29 +1,54 @@
 @use '../../../styles/variables' as var;
 
 .event {
-  padding-left: .7em;
+  max-height: 50px;
+  position: relative;
+  color: var.$color--grey;
+  font-weight: bold;
+  
 
-
-  &__content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  
+  &__btn-check{
+    position: absolute;
+    top: 50%;
+    left: -1.1rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    
+    border-color: transparent;
+    background-color: transparent;
+  
+  
+  }
+  
+  &__checkbox {
+    width: 30px;
+    height: 30px;
+    aspect-ratio: 1;
+    
+    color: #dedede;
+    background-color: #fff;
+  
+  }
+  
+  &__checked {
+    color: var.$color-primary--orange;
     
   }
-
-  &__header {
+  
+  &__content {
+    margin-left: 1.2rem;
+    padding: .8em 1.2em;
     display: flex;
     align-items: center;
-    padding: .8em 1.2em;
-    border-radius: 2em;
-  
-    color: var.$color--grey;
-
+    justify-content: space-between;
+    border-radius: .5em;
     background-color: var.$color--grey-light;
     transition: all .2s;
+  
   }
-
-  &__header:hover {
+  
+  &__content:hover {
     cursor: pointer;
     transform: scale(1.01);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
@@ -31,43 +56,55 @@
     // box-shadow: .15em .15em .5em 0 rgba($color: #000000, $alpha: .35);
   }
   
-
-  &__title {
-    font-weight: bold;
+  &__content--checked {
+    opacity: .5;
   }
+  
 
-
-
+  
+  &__left-section {
+    //display: inline-block;
+  }
+  
+  &__right-section {
+    //display: inline;
+  }
+  
+  &__title--checked {
+    text-decoration-line: line-through;
+  
+  
+  }
+  
+  
+  &__time {
+  
+  }
 }// .event
+
+
+
 
 
 ///////////////////////////////////
 // EVENT COLORS
 ///////////////////////////////////
 .event--orange {
-  .event__header {
-    color: var.$color-primary--orange-dark;
-    background-color: var.$color-primary--orange-light;
-  }
+  color: var.$color-primary--orange-dark;
+  background-color: var.$color-primary--orange-light;
 }
 
 .event--green {
-  .event__header {
-    color: var.$color--green-dark;
-    background-color: var.$color--green-light;
-  }
+  color: var.$color--green-dark;
+  background-color: var.$color--green-light;
 }
 
 .event--blue {
-  .event__header {
-    color: var.$color--blue-dark;
-    background-color: var.$color--blue-light;
-  }
+  color: var.$color--blue-dark;
+  background-color: var.$color--blue-light;
 }
 
 .event--red {
-  .event__header {
-    color: var.$color--red-dark;
-    background-color: var.$color--red-light;
-  }
+  color: var.$color--red-dark;
+  background-color: var.$color--red-light;
 }
