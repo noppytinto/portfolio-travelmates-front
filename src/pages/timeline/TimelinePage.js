@@ -1,9 +1,10 @@
 // import { v4 as uuidv4 } from 'uuid';
 import Event from '../../components/reusables/Event/Event';
 import * as assets from '../../utils/assets-manager';
-import styles from './TimelinePage.module.scss';
 import {useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import Link from "next/link";
+import styles from './TimelinePage.module.scss';
 
 
 function TimelinePage(props) {
@@ -19,7 +20,7 @@ function TimelinePage(props) {
     // FUNCTIONS
     ///////////////////////////////////
     function handleAddEventButton(ev) {
-        router.push('/event/add');
+        // router.push('/event/add');
     }
 
     ///////////////////////////////////
@@ -40,10 +41,12 @@ function TimelinePage(props) {
                 }
             </ul>
 
-            <button className={styles['timeline__btn-add']}
-                    onClick={handleAddEventButton}>
-                <assets.IconAdd className={styles['timeline__icon-add']}/>
-            </button>
+            <Link href={'/event/add'}>
+                <a className={styles['timeline__btn-add']}>
+                    <assets.IconAdd className={styles['timeline__icon-add']}/>
+                </a>
+            </Link>
+
 
         </div>
     );
