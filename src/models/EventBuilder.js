@@ -1,29 +1,35 @@
 import Event, {EventColor} from "./Event";
 
 export default class EventBuilder {
+    id;
+    yIndex;
     title;
-    starts;
-    ends;
+    time;
     color;
-    children;
+    files;
+    images;
     isImportant;
+    isCompleted;
 
-    constructor (title) {
+    constructor (id, title) {
+        this.id = id;
+        this.yIndex = Infinity;
         this.title = title;
-        this.starts = null;
-        this.ends = null;
+        this.time = null;
         this.color = EventColor.Default;
-        this.children = null;
+        this.files = [];
+        this.images = [];
         this.isImportant = false;
+        this.isCompleted = false;
     }
 
-    setStarts(value = null) {
-        this.starts = value;
+    setYindex(value = Infinity) {
+        this.yIndex = value;
         return this;
     }
 
-    setEnds(value = null) {
-        this.ends = value;
+    setTime(value = null) {
+        this.time = value;
         return this;
     }
 
@@ -32,13 +38,23 @@ export default class EventBuilder {
         return this;
     }
 
-    setChildren(children = null) {
-        this.children = children;
+    setFiles(files = []) {
+        this.files = files;
+        return this;
+    }
+
+    setImages(images = []) {
+        this.images = images;
         return this;
     }
 
     setIsImportant(value = false) {
         this.isImportant = value;
+        return this;
+    }
+
+    setIsCompleted(value = false) {
+        this.isCompleted = value;
         return this;
     }
 

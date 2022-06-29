@@ -6,34 +6,47 @@
   color: var.$color--grey;
   font-weight: bold;
   
-
   
-  &__btn-check{
+  &__indicator {
     position: absolute;
     top: 50%;
-    left: -1.1rem;
+    left: -4rem;
     transform: translateY(-50%);
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .4rem;
+  }
+  
+  &__time {
+
+  }
+  
+  &__time--checked {
+    opacity: .5;
+  }
+  
+  &__btn-check{
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    overflow: hidden;
     
     border-color: transparent;
     background-color: transparent;
-  
-  
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   &__checkbox {
+    aspect-ratio: 1;
     width: 30px;
     height: 30px;
-    aspect-ratio: 1;
-    
     color: #dedede;
     background-color: #fff;
-  
-  }
-  
-  &__checked {
-    color: var.$color-primary--orange;
-    
   }
   
   &__content {
@@ -45,7 +58,30 @@
     border-radius: .5em;
     background-color: var.$color--grey-light;
     transition: all .2s;
+  }
   
+  .event__content--orange {
+    color: var.$color-primary--orange-dark;
+    background-color: var.$color-primary--orange-light;
+  }
+  
+  .event__content--green {
+    color: var.$color--green-dark;
+    background-color: var.$color--green-light;
+  }
+  
+  .event__content--blue {
+    color: var.$color--blue-dark;
+    background-color: var.$color--blue-light;
+  }
+  
+  .event__content--red {
+    color: var.$color--red-dark;
+    background-color: var.$color--red-light;
+  }
+  
+  &__checked {
+    color: var.$color-primary--orange;
   }
   
   &__content:hover {
@@ -77,9 +113,7 @@
   }
   
   
-  &__time {
-  
-  }
+
 }// .event
 
 
@@ -89,22 +123,4 @@
 ///////////////////////////////////
 // EVENT COLORS
 ///////////////////////////////////
-.event--orange {
-  color: var.$color-primary--orange-dark;
-  background-color: var.$color-primary--orange-light;
-}
 
-.event--green {
-  color: var.$color--green-dark;
-  background-color: var.$color--green-light;
-}
-
-.event--blue {
-  color: var.$color--blue-dark;
-  background-color: var.$color--blue-light;
-}
-
-.event--red {
-  color: var.$color--red-dark;
-  background-color: var.$color--red-light;
-}

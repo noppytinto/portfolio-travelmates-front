@@ -1,11 +1,11 @@
 
 import styles from '../styles/HomePage.module.scss';
-import Timeline from './timeline/Timeline';
+import TimelinePage from './timeline/TimelinePage';
 
 function HomePage() {
     return (
         <div className={styles['home-page']}>
-            <Timeline />
+            <TimelinePage />
         </div>
     );
 }

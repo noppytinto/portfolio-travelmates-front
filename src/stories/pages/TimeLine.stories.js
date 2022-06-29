@@ -1,5 +1,5 @@
 import React from 'react';
-import Timeline from '../pages/Timeline/Timeline';
+import TimelinePage from '../../pages/timeline/TimelinePage';
 
 export default {
     /* 👇 The title prop is optional.
@@ -7,7 +7,7 @@ export default {
     * to learn how to generate automatic titles
     */
     title: 'Pages/TimelinePage',
-    component: Timeline,
+    component: TimelinePage,
     // argTypes: {
     //     color: {
     //         options: ['default', 'orange', 'blue', 'red', 'green'],
@@ -22,9 +22,9 @@ export default {
     // },
 };
 
-// export const Event = () => <BaseEvent title="base event"></BaseEvent>;
+// export const Event = () => <Event title="base event"></Event>;
 //👇 We create a “template” of how args map to rendering
-const Template = (args) => <Timeline {...args} />;
+const Template = (args) => <TimelinePage {...args} />;
 
 
 ///////////////////////////
