@@ -1,5 +1,5 @@
 export const EventColor = {
-    Default: 'default',
+    Default: '',
     Grey: 'grey',
     Blue: 'blue',
     Orange: 'orange',

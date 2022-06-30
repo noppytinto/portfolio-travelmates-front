@@ -2,14 +2,16 @@
 import Event from '../../components/reusables/Event/Event';
 import * as assets from '../../utils/assets-manager';
 import {useSelector} from "react-redux";
-import Link from "next/link";
+import {useState} from "react";
 import styles from './TimelinePage.module.scss';
+import BottomSheet from "../../components/reusables/BottomSheet/BottomSheet";
 
 
 function TimelinePage(props) {
     const userData = useSelector(state => state.userSlice.userData);
     const events = userData.events ?? [];
     const eventsArray = Array.from(events.values());
+    const [showBottomSheet, setShowBottomSheet] = useState(false);
 
 
 
@@ -18,7 +20,9 @@ function TimelinePage(props) {
     // FUNCTIONS
     ///////////////////////////////////
     function handleAddEventButton(ev) {
-        // router.push('/event/add');
+        // show bottom-sheet
+        console.log('bottom sheet opened');
+        setShowBottomSheet(!showBottomSheet);
     }
 
 
@@ -40,11 +44,16 @@ function TimelinePage(props) {
                 }
             </ul>
 
-            <Link href={'/event/add'}>
-                <a className={styles['timeline__btn-add']}>
-                    <assets.IconAdd className={styles['timeline__icon-add']}/>
-                </a>
-            </Link>
+            <button className={styles['timeline__btn-add']}
+                    onClick={handleAddEventButton}>
+                <assets.IconAdd className={styles['timeline__icon-add']}/>
+            </button>
+
+            {showBottomSheet &&
+                <BottomSheet onClickOuside={() => setShowBottomSheet(false)}>
+                    <p>bottom sheet</p>
+                </BottomSheet>
+            }
         </div>
     );
 }// TimelinePage

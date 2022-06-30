@@ -1,11 +1,12 @@
 import '../styles/global.scss';
-import { StyledEngineProvider } from '@mui/material';
-import { Provider } from 'react-redux';
+import {StyledEngineProvider} from '@mui/material';
+import {Provider} from 'react-redux';
 import mainStore from '../redux/main-store';
 import Head from 'next/head';
+import {AnimatePresence} from "framer-motion";
 
 // for sharing layouts
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps, router}) {
 
 
     ///////////////////////////////////
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }) {
                 <Head>
                     <title>{'Travelmates'}</title>
                 </Head>
-                <Component {...pageProps} />
+                <AnimatePresence exitBeforeEnter>
+                    <Component {...pageProps} key={router.route}/>
+                </AnimatePresence>
                 <p>{'shared'}</p>
             </Provider>
         </StyledEngineProvider>

@@ -31,6 +31,9 @@ function Event(props) {
         case 'red':
             classesEventContent += `${styles['event__content--red']} `;
             break;
+        default :
+            break;
+
     }
 
     if(checked) {

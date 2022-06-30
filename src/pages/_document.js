@@ -20,6 +20,7 @@ function Document() {
             </Head>
             <body>
                 <Main />
+                <div id="bottom-sheet" />
                 <NextScript />
             </body>
         </Html>
