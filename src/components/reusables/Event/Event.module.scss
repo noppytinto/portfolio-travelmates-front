@@ -20,6 +20,7 @@
   }
   
   &__time {
+    transition: all .2s;
 
   }
   
@@ -80,8 +81,18 @@
     background-color: var.$color--red-light;
   }
   
+  @keyframes pop {
+    0% {transform: scale(0);}
+    100% {transform: scale(1);}
+  }
+  
   &__checked {
     color: var.$color-primary--orange;
+    transition: all .2s;
+    animation-name: pop;
+    animation-duration: .1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
   }
   
   &__content:hover {

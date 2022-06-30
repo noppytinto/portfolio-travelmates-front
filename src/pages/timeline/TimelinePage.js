@@ -2,13 +2,11 @@
 import Event from '../../components/reusables/Event/Event';
 import * as assets from '../../utils/assets-manager';
 import {useSelector} from "react-redux";
-import {useRouter} from "next/router";
 import Link from "next/link";
 import styles from './TimelinePage.module.scss';
 
 
 function TimelinePage(props) {
-    const router = useRouter();
     const userData = useSelector(state => state.userSlice.userData);
     const events = userData.events ?? [];
     const eventsArray = Array.from(events.values());
@@ -22,6 +20,7 @@ function TimelinePage(props) {
     function handleAddEventButton(ev) {
         // router.push('/event/add');
     }
+
 
     ///////////////////////////////////
     // JSX
@@ -46,8 +45,6 @@ function TimelinePage(props) {
                     <assets.IconAdd className={styles['timeline__icon-add']}/>
                 </a>
             </Link>
-
-
         </div>
     );
 }// TimelinePage
