@@ -16,8 +16,6 @@ function TimelinePage(props) {
     const [showBottomSheet, setShowBottomSheet] = useState(false);
 
 
-
-
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
@@ -34,7 +32,7 @@ function TimelinePage(props) {
     return (
         <div className={styles['timeline']}>
             <ul className={styles['timeline__content']}>
-                {eventsArray.map(event =>(
+                {eventsArray.map(event => (
                     <li key={event.getId()}>
                         <Event title={event.title}
                                color={event.color}
@@ -52,12 +50,18 @@ function TimelinePage(props) {
             </button>
 
             {showBottomSheet &&
-                <CreateEventSheet onClickOuside={() => setShowBottomSheet(false)} />
+                <CreateEventSheet
+                    onClickOuside={() => setShowBottomSheet(false)}/>
             }
         </div>
     );
 }// TimelinePage
 
+/*
+">0.2%",
+"not dead",
+"not op_mini all",
+*/
 
 
 export default TimelinePage;
