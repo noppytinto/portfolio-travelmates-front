@@ -21,6 +21,8 @@
     margin-bottom: .4em;
     color: #888888;
     font-size: 1rem;
+  
+    transform-origin: left;
     animation-name: slide-up;
     animation-duration: .1s;
     animation-fill-mode: forwards;
@@ -32,16 +34,16 @@
   
   @keyframes slide-up {
     0% {
-      transform: translateX(1rem) translateY(1rem) scale(1.2);
+      transform: translateY(1rem) scale(1.2);
     }
     100% {
-      transform: translateX(0) translateY(0) scale(1);
+      transform: translateY(0) scale(1);
     }
   }
   
   @keyframes slide-down {
     100% {
-      transform: translateX(1rem) translateY(1rem) scale(1.2);
+      transform: translateY(1rem) scale(1.2);
     }
   }
   

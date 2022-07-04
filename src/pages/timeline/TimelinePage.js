@@ -5,6 +5,8 @@ import {useSelector} from "react-redux";
 import {useState} from "react";
 import styles from './TimelinePage.module.scss';
 import BottomSheet from "../../components/reusables/BottomSheet/BottomSheet";
+import CreateEventSheet
+    from "../../components/CreateEventSheet/CreateEventSheet";
 
 
 function TimelinePage(props) {
@@ -50,9 +52,7 @@ function TimelinePage(props) {
             </button>
 
             {showBottomSheet &&
-                <BottomSheet onClickOuside={() => setShowBottomSheet(false)}>
-                    <p>bottom sheet</p>
-                </BottomSheet>
+                <CreateEventSheet onClickOuside={() => setShowBottomSheet(false)} />
             }
         </div>
     );
