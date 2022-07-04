@@ -1,0 +1,64 @@
+.textfield {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  
+  padding: .7em 1.5em;
+  border-radius: .7em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #BFBFBF;
+  
+  &:hover {
+    //cursor: text;
+  }
+  
+  &__label {
+    //position: absolute;
+    //top: 0;
+    //left: 0;
+    margin-bottom: .4em;
+    color: #888888;
+    font-size: 1rem;
+    animation-name: slide-up;
+    animation-duration: .1s;
+    animation-fill-mode: forwards;
+  }
+  
+  &__label:hover {
+    cursor: text;
+  }
+  
+  @keyframes slide-up {
+    0% {
+      transform: translateX(1rem) translateY(1rem) scale(1.2);
+    }
+    100% {
+      transform: translateX(0) translateY(0) scale(1);
+    }
+  }
+  
+  @keyframes slide-down {
+    100% {
+      transform: translateX(1rem) translateY(1rem) scale(1.2);
+    }
+  }
+  
+  &__label--centered {
+    font-weight: bold;
+    animation-name: slide-down;
+    animation-duration: .1s;
+  }
+  
+  &__input {
+    font-size: 1.4rem;
+    font-weight: 500;
+    border-color: transparent;
+  }
+  
+  &__input--invisible {
+    visibility: hidden;
+  }
+}
+
