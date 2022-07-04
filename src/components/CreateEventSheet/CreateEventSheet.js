@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom';
 import {useEffect, useState} from "react";
-import styles from './CreateEventSheet.module.scss';
 import BottomSheet from "../reusables/BottomSheet/BottomSheet";
 import TextField from "../reusables/TextField/TextField";
+import Card from "../Card/Card";
+import styles from './CreateEventSheet.module.scss';
 
 
 
@@ -26,7 +27,10 @@ function CreateEventSheet(props) {
     return (
         <BottomSheet onClickOuside={props.onClickOuside}>
             <div className={styles['create-event-sheet']}>
-                <TextField label={'Title'} name={'title'}/>
+                <Card className={styles['create-event-sheet__card']}>
+                    <TextField label={'Title'} name={'title'}/>
+
+                </Card>
             </div>
         </BottomSheet>
     );
