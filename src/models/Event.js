@@ -8,8 +8,8 @@ export const EventColor = {
 }
 
 export default class Event {
-    #id;
-    #yIndex;
+    id;
+    yIndex;
     title;
     time;
     color;
@@ -20,8 +20,8 @@ export default class Event {
     owner;
 
     constructor (builder) {
-        this.#id = builder.id;
-        this.#yIndex = builder.yIndex;
+        this.id = builder.id;
+        this.yIndex = builder.yIndex;
         this.title = builder.title;
         this.time = builder.time;
         this.color = builder.color;
@@ -31,8 +31,8 @@ export default class Event {
         this.isCompleted = builder.isCompleted;
     }
 
-    getId() {
-        return this.#id;
-    }
+    // getId() {
+    //     return this.#id;
+    // }
 
 }// Event

@@ -21,8 +21,7 @@ import styles from './BottomSheet.module.scss';
 
 function BottomSheet(props) {
     const [mounted, setMounted] = useState(false);
-    const onClickOuside = props.onClickOuside ?? (() => {
-    });
+    const onClickOutside = props.onClickOutside ?? (() => {});
 
     ///////////////////////////////////
     // EFFECTS
@@ -38,7 +37,7 @@ function BottomSheet(props) {
     // FUNCTIONS
     ///////////////////////////////////
     function handleClickOutside(ev) {
-        onClickOuside(ev);
+        onClickOutside(ev);
     }
 
     ///////////////////////////////////

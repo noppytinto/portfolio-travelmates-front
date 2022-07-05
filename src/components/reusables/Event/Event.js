@@ -7,7 +7,7 @@ import styles from './Event.module.scss';
 function Event(props) {
     const color = props.color ?? '';
     const title = props.title ?? '';
-    const timeValue = props.time ?? null;
+    const timeValue = props.time ?? 0;
     const initialChecked = props.isCompleted || false;
 
     const [checked, setChecked] = useState(initialChecked);
@@ -94,7 +94,7 @@ function Event(props) {
 Event.propTypes = {
     color: PropTypes.oneOf(['', 'orange', 'blue', 'green', 'red']),
     title: PropTypes.string,
-    time: PropTypes.instanceOf(Date),
+    time: PropTypes.number,
     checked: PropTypes.bool,
 }
 

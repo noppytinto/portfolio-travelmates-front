@@ -6,8 +6,8 @@ import {useState} from "react";
 import CreateEventSheet
     from "../../components/CreateEventSheet/CreateEventSheet";
 import FloatingButton from "../../components/reusables/FloatingButton/FloatingButton";
-import styles from './TimelinePage.module.scss';
 import {userActions} from '../../redux/slices/user-slice';
+import styles from './TimelinePage.module.scss';
 
 function TimelinePage(props) {
     const dispatcher = useDispatch();
@@ -28,7 +28,7 @@ function TimelinePage(props) {
     
     function handleOnClickCreateEvent(ev, createdEvent) {
         console.log('event created:', createdEvent);
-        // dispatcher(userActions.addEvent({event: createdEvent}));
+        dispatcher(userActions.addEvent({event: createdEvent}));
         setShowBottomSheet(false);
     }
 
@@ -40,7 +40,7 @@ function TimelinePage(props) {
         <div className={styles['timeline']}>
             <ul className={styles['timeline__content']}>
                 {events.map(event => (
-                    <li key={event.getId()}>
+                    <li key={event.id}>
                         <Event title={event.title}
                                color={event.color}
                                isCompleted={event.isCompleted}
@@ -55,7 +55,7 @@ function TimelinePage(props) {
             </FloatingButton>
 
             {showBottomSheet &&
-                <CreateEventSheet onClickOuside={() => setShowBottomSheet(false)}
+                <CreateEventSheet onClickOutside={() => setShowBottomSheet(false)}
                                   onClickCancel={() => setShowBottomSheet(false)}
                                   onClickCreateEvent={handleOnClickCreateEvent}
                 />

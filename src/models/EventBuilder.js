@@ -15,7 +15,7 @@ export default class EventBuilder {
         this.id = id;
         this.yIndex = Infinity;
         this.title = title;
-        this.time = null;
+        this.time = 0;
         this.color = EventColor.Default;
         this.files = [];
         this.images = [];
@@ -28,8 +28,8 @@ export default class EventBuilder {
         return this;
     }
 
-    setTime(value = null) {
-        this.time = value;
+    setTime(time = 0) {
+        this.time = time;
         return this;
     }
 

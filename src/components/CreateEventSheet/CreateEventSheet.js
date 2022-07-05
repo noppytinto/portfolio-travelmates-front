@@ -7,8 +7,8 @@ import EventBuilder from "../../models/EventBuilder";
 import React from 'react';
 import styles from './CreateEventSheet.module.scss';
 
-function CreateEventSheet(props) {
 
+function CreateEventSheet(props) {
 
     ///////////////////////////////////
     // EFFECTS
@@ -32,7 +32,7 @@ function CreateEventSheet(props) {
     // JSX
     ///////////////////////////////////
     return (
-        <BottomSheet className={styles['bottom-sheet']} onClickOuside={props.onClickOuside} >
+        <BottomSheet className={styles['bottom-sheet']} onClickOutside={props.onClickOutside} >
             <div className={styles['create-event-sheet']}>
                 <Card className={styles['create-event-sheet__card']}>
                     <TextField label={'Title'} name={'title'} ref={titleRef}/>

@@ -35,23 +35,30 @@ const userSlice = createSlice({
 
 function getMockEvents() {
     let id = 0;
+    console.log();
+    const date_1 = (new Date(1990, 0, 1, 0, 0)).getTime();
+    const date_2 = (new Date(1990, 0, 1, 2, 0)).getTime();
+    const date_3 = (new Date(1990, 0, 1, 3, 0)).getTime();
+    const date_4 = (new Date(1990, 0, 1, 4, 0)).getTime();
+    const date_5 = (new Date(1990, 0, 1, 5, 0)).getTime();
+
     const event_1 = new EventBuilder(id++, 'event 1')
-        .setTime(new Date(1970, 0, 1, 0, 0))
+        .setTime(date_1)
         .build();
     const event_2 = new EventBuilder(id++,'event 2')
-        .setTime(new Date(1970, 0, 1, 0, 10))
+        .setTime(date_2)
         .build();
 
     const event_3 = new EventBuilder(id++,'event 3')
-        .setTime(new Date(1970, 0, 1, 0, 15))
+        .setTime(date_3)
         .build();
 
     const event_4 = new EventBuilder(id++,'event 4')
-        .setTime(new Date(1970, 0, 1, 0, 35))
+        .setTime(date_4)
         .build();
 
     const event_5 = new EventBuilder(id++,'event 5')
-        .setTime(new Date(1970, 0, 1, 1, 12))
+        .setTime(date_5)
         .build();
 
 
@@ -61,6 +68,8 @@ function getMockEvents() {
     events.push(event_3);
     events.push(event_4);
     events.push(event_5);
+
+    console.log(events);
 
     // const events = new Map();
     // events.set(event_1.getId(), event_1);
