@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import {useEffect, useState} from "react";
 import BottomSheet from "../reusables/BottomSheet/BottomSheet";
 import TextField from "../reusables/TextField/TextField";
-import Card from "../Card/Card";
+import Card from "../reusables/Card/Card";
 import styles from './CreateEventSheet.module.scss';
 
 
@@ -32,6 +32,10 @@ function CreateEventSheet(props) {
 
                 </Card>
             </div>
+
+            <footer className={styles['create-event-sheet__footer']}>
+                <p>footer</p>
+            </footer>
         </BottomSheet>
     );
 }// CreateEventSheet

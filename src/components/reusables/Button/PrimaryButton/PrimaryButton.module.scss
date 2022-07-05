@@ -1,0 +1,6 @@
+@use '../../../../styles/variables' as var;
+
+.primary-button {
+  background-color: var.$color-primary--orange-light;
+  color: var.$color-primary--orange-dark
+}//

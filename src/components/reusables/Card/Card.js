@@ -1,4 +1,4 @@
-import Sheet from "../reusables/Sheet/Sheet";
+import Sheet from "../Sheet/Sheet";
 import styles from './Card.module.scss';
 
 function Card(props) {

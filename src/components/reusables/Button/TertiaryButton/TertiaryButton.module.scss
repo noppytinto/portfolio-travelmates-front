@@ -1,0 +1,7 @@
+@use '../../../../styles/variables' as var;
+
+.tertiary-button {
+  background-color: transparent;
+  color: var.$color-primary--orange-dark;
+  text-decoration: underline;
+}//

@@ -1,0 +1,8 @@
+@use '../../../../styles/variables' as var;
+
+.secondary-button {
+  border-style: solid;
+  background-color: #fff;
+  border-color: var.$color-primary--orange-light;
+  color: var.$color-primary--orange-dark
+}//
