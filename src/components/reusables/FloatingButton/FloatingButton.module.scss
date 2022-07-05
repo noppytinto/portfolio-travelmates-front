@@ -1,4 +1,4 @@
-@use '../../styles/variables' as var;
+@use '../../../styles/variables' as var;
 
 .floating-button {
   padding: 1em;
@@ -10,12 +10,13 @@
   
   border-radius: 50%;
   border-color: transparent;
-  background-color: var.$color-primary--orange;
-  box-shadow: .0 .6em 1em -.5em rgba(0,0,0,.4);
+  background-color: var.$color-primary--orange-light;
+  box-shadow: .0 .5em 1em -.5em rgba(0,0,0,.4);
   transition: all .2s;
   
   &:active {
     transform: scale(.9);
     box-shadow: none;
   }
+  
 }//

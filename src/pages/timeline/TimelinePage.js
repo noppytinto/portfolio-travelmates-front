@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {useState} from "react";
 import CreateEventSheet
     from "../../components/CreateEventSheet/CreateEventSheet";
-import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import FloatingButton from "../../components/reusables/FloatingButton/FloatingButton";
 import styles from './TimelinePage.module.scss';
 
 
@@ -48,8 +48,7 @@ function TimelinePage(props) {
             </FloatingButton>
 
             {showBottomSheet &&
-                <CreateEventSheet
-                    onClickOuside={() => setShowBottomSheet(false)}/>
+                <CreateEventSheet onClickOuside={() => setShowBottomSheet(false)}/>
             }
         </div>
     );
