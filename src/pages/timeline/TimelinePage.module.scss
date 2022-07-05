@@ -22,26 +22,12 @@
     position: fixed;
     bottom: 1em;
     right: 1em;
-    padding: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border-color: transparent;
-    
     background-color: #ececec;
     box-shadow: .0 .6em 1em -.5em rgba(0,0,0,.4);
-    transition: all .2s;
   }
   
   &__icon-add {
     height: 30px;
     width: 30px;
   }
-  
-  &__btn-add:active {
-    transform: scale(.9);
-    box-shadow: none;
-  }
-  
 }// .timeline

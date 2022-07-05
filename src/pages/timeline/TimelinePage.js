@@ -3,10 +3,10 @@ import Event from '../../components/reusables/Event/Event';
 import * as assets from '../../utils/assets-manager';
 import {useSelector} from "react-redux";
 import {useState} from "react";
-import styles from './TimelinePage.module.scss';
-import BottomSheet from "../../components/reusables/BottomSheet/BottomSheet";
 import CreateEventSheet
     from "../../components/CreateEventSheet/CreateEventSheet";
+import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import styles from './TimelinePage.module.scss';
 
 
 function TimelinePage(props) {
@@ -37,17 +37,15 @@ function TimelinePage(props) {
                         <Event title={event.title}
                                color={event.color}
                                isCompleted={event.isCompleted}
-                               time={event.time}
-                        />
+                               time={event.time}/>
                     </li>)
-                )
-                }
+                )}
             </ul>
 
-            <button className={styles['timeline__btn-add']}
-                    onClick={handleAddEventButton}>
+            <FloatingButton className={styles['timeline__btn-add']}
+                            onClick={handleAddEventButton}>
                 <assets.IconAdd className={styles['timeline__icon-add']}/>
-            </button>
+            </FloatingButton>
 
             {showBottomSheet &&
                 <CreateEventSheet
