@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import PropTypes from "prop-types";
 import styles from './TextField.module.scss';
 
@@ -19,12 +19,11 @@ import styles from './TextField.module.scss';
 //     },
 // }
 
-function TextField(props) {
+const TextField = React.forwardRef((props, ref) => {
     const type = props.type || 'text';
     const name = props.name;
     const label = props.label || '';
 
-    const inputRef = useRef();
     let classesLabel = `${styles['textfield__label']} ${styles['textfield__label--centered']}`;
     let classesInput = `${styles['textfield__input']} ${styles['textfield__input--invisible']}`;
     const [showInput, setShowInput] = useState(false);
@@ -69,12 +68,12 @@ function TextField(props) {
                    id={name}
                    type={type}
                    name={name}
-                   ref={inputRef}
+                   ref={ref}
                    onBlur={handleOnBlur}
             />
         </div>
     );
-}// TextField
+});// TextField
 
 TextField.propTypes = {
     type: PropTypes.string,

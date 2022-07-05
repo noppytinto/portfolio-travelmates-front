@@ -46,7 +46,7 @@ function BottomSheet(props) {
     ///////////////////////////////////
     return mounted
         ? ReactDOM.createPortal(
-            <div className={styles['bottom-sheet']}
+            <div className={`${styles['bottom-sheet']}`}
                         onClick={handleClickOutside}
                         // variants={variants}
                         // initial="hidden"
@@ -54,7 +54,7 @@ function BottomSheet(props) {
                         // exit="hidden"
                 // onAnimationEnd={}
             >
-                <div className={styles['bottom-sheet__content']}
+                <div className={`${styles['bottom-sheet__content']} ${props.className}`}
                      onClick={ev => ev.stopPropagation()}>
                     {props.children}
                 </div>

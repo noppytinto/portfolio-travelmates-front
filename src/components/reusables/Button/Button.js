@@ -10,19 +10,19 @@ function Button(props) {
 
     switch (props.type) {
         case 'primary':
-            return <PrimaryButton className={`${styles['button']} ${props.className}`}>
+            return <PrimaryButton {...props} className={`${styles['button']} ${props.className}`}>
                       {label}
                    </PrimaryButton>
         case 'secondary':
-            return <SecondaryButton className={`${styles['button']} ${props.className}`}>
+            return <SecondaryButton {...props} className={`${styles['button']} ${props.className}`}>
                 {label}
             </SecondaryButton>
         case 'tertiary':
-            return <TertiaryButton className={`${styles['button']} ${props.className}`}>
+            return <TertiaryButton {...props} className={`${styles['button']} ${props.className}`}>
                 {label}
             </TertiaryButton>
         default:
-            return <PrimaryButton className={`${styles['button']} ${props.className}`}>
+            return <PrimaryButton {...props} className={`${styles['button']} ${props.className}`}>
                 {label}
             </PrimaryButton>
     }
