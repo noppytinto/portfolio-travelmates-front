@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
-import {useState} from "react";
+import React, {useState} from "react";
 import styles from './Event.module.scss';
 
 
@@ -98,4 +98,9 @@ Event.propTypes = {
     checked: PropTypes.bool,
 }
 
-export default Event;
+function propsAreEqual(prev, next) {
+    return prev.id === next.id;
+}
+
+// export default Event;
+export default React.memo(Event, propsAreEqual);
