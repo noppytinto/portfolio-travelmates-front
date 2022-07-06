@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
 import React, {useState} from "react";
 // import { useDrag } from 'react-dnd'
+import {useDraggable} from '@dnd-kit/core';
+
 import styles from './Event.module.scss';
 
 
-export const ItemTypes = {
-    EVENT: 'event'
-};
+
 
 function Event(props) {
     const color = props.color ?? '';
@@ -70,15 +70,29 @@ function Event(props) {
     function handleOnCheck(ev) {
         props.onCheckEvent(index, !isChecked);
     }
- 
+
+
+
+    const {attributes, listeners, setNodeRef, transform} = useDraggable({
+        id: `${index}`,
+        data: {
+            index: `${index}`,
+        }
+      });
+
+    const style = transform ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    } : undefined;
+
+    // const style = {
+    //     // transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    // };
 
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
-        <div className={classesEvent}
-            //  style={{opacity: isDragging ? 0.5 : 1,}}
-             >
+        <div className={classesEvent}>
 
             <div className={styles['event__indicator']}>
                 <p className={classesEventTime}>{hoursAndMinutes}</p>
@@ -102,9 +116,9 @@ function Event(props) {
             {/* content */}
             {/*/////////////////////////////////*/}
             <div className={classesEventContent}
-                //  ref={drag}
-                //  style={{opacity: isDragging ? 0.5 : 1,}}
-            >
+                 ref={setNodeRef} 
+                 style={style} {...listeners} {...attributes}>
+
                 <div className={styles['event__left-section']}>
                     <p className={classesEventTitle}>{title}</p>
                 </div>
