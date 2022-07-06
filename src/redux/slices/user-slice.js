@@ -25,8 +25,38 @@ const userSlice = createSlice({
             state.userData.events = updatedEvents;
         },
 
+        moveEvent(state, action) {
+            const currentPosition = action.payload.currentPosition;
+            const newPosition = action.payload.newPosition;
+
+            const oldEvents = state.userData.events;
+            moveInArray(oldEvents, currentPosition, newPosition);
+
+            const updatedEvents = [...oldEvents];
+            state.userData.events = updatedEvents;
+        },
+
     },
 });
+
+function moveInArray(arr, from, to) {
+
+    // Make sure a valid array is provided
+    if (Object.prototype.toString.call(arr) !== '[object Array]') {
+        throw new Error('Please provide a valid array');
+    }
+
+    // Delete the item from it's current position
+    const removed = arr.splice(from, 1);
+
+    // Make sure there's an item to move
+    if (!removed.length) {
+        throw new Error('There is no item in the array at index ' + from);
+    }
+
+    // Move the item to its new position
+    arr.splice(to, 0, removed[0]);
+};
 
 
 

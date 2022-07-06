@@ -2,11 +2,16 @@ import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
 import React, {useState} from "react";
 import styles from './Event.module.scss';
+import { useDrag } from 'react-dnd'
 
+export const ItemTypes = {
+    EVENT: 'event'
+};
 
 function Event(props) {
     const color = props.color ?? '';
     const title = props.title ?? '';
+    const index = props.index;
     const timeValue = props.time ?? 0;
     const initialChecked = props.isCompleted || false;
 
@@ -53,11 +58,24 @@ function Event(props) {
             padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes());
     }
 
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: ItemTypes.EVENT,
+        item: {eventIndex: index},
+        // canDrop: (monitor) => {allowed(monitor.eventIndex, index)},
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging(),
+            item: monitor.getItem(),
+        })
+    }))
+
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
-        <div className={classesEvent}>
+        <div className={classesEvent}
+             style={{opacity: isDragging ? 0.5 : 1,}}
+             >
+
             <div className={styles['event__indicator']}>
                 <p className={classesEventTime}>{hoursAndMinutes}</p>
 
@@ -79,7 +97,10 @@ function Event(props) {
             {/*/////////////////////////////////*/}
             {/* content */}
             {/*/////////////////////////////////*/}
-            <div className={classesEventContent}>
+            <div className={classesEventContent}
+                 ref={drag}
+                 style={{opacity: isDragging ? 0.5 : 1,}}
+            >
                 <div className={styles['event__left-section']}>
                     <p className={classesEventTitle}>{title}</p>
                 </div>
@@ -99,8 +120,9 @@ Event.propTypes = {
 }
 
 function propsAreEqual(prev, next) {
-    return prev.id === next.id;
+    return prev.id === next.id || prev.index === next.index;
 }
 
 // export default Event;
-export default React.memo(Event, propsAreEqual);
+// export default React.memo(Event, propsAreEqual);
+export default Event;
