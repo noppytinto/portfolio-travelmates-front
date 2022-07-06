@@ -10,7 +10,7 @@ import {
     useSensor,
     useSensors,
   } from '@dnd-kit/core';
-
+  import {pointerWithin, rectIntersection, closestCenter} from '@dnd-kit/core';
 
 import styles from './Timeline.module.scss';
 function Timeline(props) {
@@ -44,7 +44,7 @@ function Timeline(props) {
     // JSX
     ///////////////////////////////////
     return (
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+        <DndContext onDragEnd={handleDragEnd} sensors={sensors} collisionDetection={closestCenter}>
         <ul className={styles['timeline']}>
                     {events.map((event, index) => {
                         console.log('title: ', event.title, ' index: ', index);
