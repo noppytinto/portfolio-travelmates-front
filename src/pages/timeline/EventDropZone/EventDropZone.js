@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDrop } from 'react-dnd';
 import styles from './EventDropZone.module.scss';
 
@@ -52,4 +53,5 @@ function EventDropZone(props) {
     );
 }//
 
-export default EventDropZone;
+// export default EventDropZone;
+export default React.memo(EventDropZone, (prev, next) => prev.index === next.index);

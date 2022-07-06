@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
 import React, {useState} from "react";
-import styles from './Event.module.scss';
 import { useDrag } from 'react-dnd'
+import styles from './Event.module.scss';
+
 
 export const ItemTypes = {
     EVENT: 'event'
@@ -13,9 +14,7 @@ function Event(props) {
     const title = props.title ?? '';
     const index = props.index;
     const timeValue = props.time ?? 0;
-    const initialChecked = props.isCompleted || false;
-
-    const [checked, setChecked] = useState(initialChecked);
+    const isChecked = props.isCompleted || false;
 
     const givenClasses = props.className;
     let classesEvent = `${styles['event']} ${givenClasses} `;
@@ -41,7 +40,7 @@ function Event(props) {
 
     }
 
-    if(checked) {
+    if(isChecked) {
         classesEventContent += styles['event__content--checked'];
         classesEventTitle += styles['event__title--checked'];
         classesEventTime += styles['event__time--checked'];
@@ -66,8 +65,12 @@ function Event(props) {
             isDragging: !!monitor.isDragging(),
             item: monitor.getItem(),
         })
-    }))
+    }), [index])
 
+    function handleOnCheck(ev) {
+        props.onCheckEvent(index, !isChecked);
+    }
+ 
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
@@ -82,8 +85,8 @@ function Event(props) {
                 {/*/////////////////////////////////*/}
                 {/* checkbox */}
                 {/*/////////////////////////////////*/}
-                <button className={styles['event__btn-check']} onClick={() => setChecked(!checked)}>
-                    {checked ?
+                <button className={styles['event__btn-check']} onClick={handleOnCheck}>
+                    {isChecked ?
                         <assets.IconRadioChecked className={`${styles['event__checkbox']} ${styles['event__checked']}`}/>
                         :
                         <assets.IconRadioUnchecked className={styles['event__checkbox']}/>
@@ -116,11 +119,11 @@ Event.propTypes = {
     color: PropTypes.oneOf(['', 'orange', 'blue', 'green', 'red']),
     title: PropTypes.string,
     time: PropTypes.number,
-    checked: PropTypes.bool,
+    isCompleted: PropTypes.bool,
 }
 
 function propsAreEqual(prev, next) {
-    return prev.id === next.id || prev.index === next.index;
+    return (prev.isCompleted === next.isCompleted);
 }
 
 // export default Event;

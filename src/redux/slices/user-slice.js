@@ -36,6 +36,17 @@ const userSlice = createSlice({
             state.userData.events = updatedEvents;
         },
 
+        checkEvent(state, action) {
+            const isChecked = action.payload.isChecked;
+            const index = action.payload.index;
+
+            const oldEvents = state.userData.events;
+            const updatedEvents = [...oldEvents];
+            updatedEvents[index].isCompleted = isChecked;
+
+            state.userData.events = updatedEvents;
+        },
+
     },
 });
 

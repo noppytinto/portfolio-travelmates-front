@@ -19,6 +19,7 @@ function TimelinePage(props) {
     const dispatcher = useDispatch();
     const userData = useSelector(state => state.userSlice.userData);
     const events = userData.events ?? [];
+    console.log('new events:', events);
     const [showBottomSheet, setShowBottomSheet] = useState(false);
 
 
@@ -45,7 +46,10 @@ function TimelinePage(props) {
 
     }
 
-
+    function handleOnCheckEvent(index, checked) {
+        dispatcher(userActions.checkEvent({ index, isChecked: checked}));
+        
+    }
 
 
     ///////////////////////////////////
@@ -65,7 +69,9 @@ function TimelinePage(props) {
                                 color={event.color}
                                 isCompleted={event.isCompleted}
                                 time={event.time}
-                                index={index} />
+                                index={index} 
+                                onCheckEvent={handleOnCheckEvent}
+                                />
                             <EventDropZone index={index + 1} onDropped={handleOnDropped} />
                         </li>)}
                     )}
