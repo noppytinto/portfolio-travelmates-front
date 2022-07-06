@@ -1,66 +1,103 @@
-import React from 'react';
-// import { useDrop } from 'react-dnd';
+import React, {useState} from 'react';
 import styles from './EventDropZone.module.scss';
-import {useDroppable} from '@dnd-kit/core';
+import {useSelector} from "react-redux";
 
-export const ItemTypes = {
-    EVENT: 'event'
-};
 
 
 function EventDropZone(props) {
-    const index = props.index;
-    const {isOver, setNodeRef} = useDroppable({
-        id: `${index}`,
-        data: {
-            index: `${index}`,
-        }
-    });
+    const currentDropZoneIndex = props.index;
+    const [isDragOver, setIsDragOver] = useState(false);
+    const eventIndex = useSelector(state => state.dragAndDropSlice.eventIndex);
 
-
-
-    // const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    //     accept: ItemTypes.EVENT,
-    //     drop: (monitor) => {handleDropItem(monitor.eventIndex, index)},
-    //     canDrop: (monitor) => handleCanDrop(monitor.eventIndex, index),
-    //     collect: monitor => ({
-    //         isOver: !!monitor.isOver(),
-    //         canDrop: !!monitor.canDrop(),
-    //     }),
-    // }), [index]);
-
-    const dropStyle = (isOver) ? {
+    const dropStyle = (isDragOver) ? {
         backgroundColor: "#fff",
         opacity: "0.8",
         backgroundImage: "radial-gradient(circle at center center, #fff, #fff), repeating-radial-gradient(circle at center center, #FFE0B2, #FFE0B2, 10px, transparent 20px, transparent 10px)",
         backgroundBlendMode: "multiply",
-    } : {};
+    } : null;
 
 
-
-    ///////////////////////////////////
-    // FUNCTIONS
-    ///////////////////////////////////
-    function handleDropItem(currentPosition, newPosition) {
-        // props.onDropped(currentPosition, (currentPosition>newPosition) ? newPosition: newPosition-1);
-    }
-    
-
-    function handleCanDrop(eventIndex, dropIndex) {
-        // return (dropIndex > eventIndex+1) || 
-        //        (dropIndex < eventIndex);
-    }
 
 
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
-        <div className={`${styles['event-drop-zone']} ${props.className}`} 
-             ref={setNodeRef} 
+        <div className={`${styles['event-drop-zone']} ${props.className}`}
+             onDragOver={handleDragOver}
+             onDrop={handleOnDrop}
+             onDragEnter={handleOnDragEnter}
+             onDragLeave={handleOnDragLeave}
              style={dropStyle}
+
              />
     );
+
+
+    ///////////////////////////////////
+    // FUNCTIONS
+    ///////////////////////////////////
+    function handleDropItem(currentPosition, newPosition) {
+    }
+
+
+    function handleCanDrop(eventIndex, dropIndex) {
+        // return (dropIndex > eventIndex+1) ||
+        //        (dropIndex < eventIndex);
+    }
+
+    function handleDragOver(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        // set dropEffect to copy i.e copy of the source item
+        ev.dataTransfer.dropEffect = "move";
+
+    }
+
+    function handleOnDragEnter(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        if ( ! _canDrag(eventIndex, currentDropZoneIndex)) return;
+
+        console.log('drag entered');
+        setIsDragOver(true);
+    }
+
+    function handleOnDragLeave(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        if ( ! _canDrag(eventIndex, currentDropZoneIndex)) return;
+
+        console.log('drag left');
+        setIsDragOver(false);
+    }
+
+    function handleOnDrop(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        if ( ! _canDrag(eventIndex, currentDropZoneIndex)) return;
+
+
+        // Get the id of the target and add the moved element to the target's DOM
+        const data = ev.dataTransfer.getData("text/plain");
+        console.log('dropped from:', data, ' to: ', currentDropZoneIndex);
+        setIsDragOver(false);
+
+
+        props.onDropped(eventIndex, (eventIndex>currentDropZoneIndex) ? currentDropZoneIndex: currentDropZoneIndex-1);
+
+    }
+
+    function _canDrag(from, to) {
+        if (to === from) return false;
+        if (to === from+1) return false;
+
+        return true;
+    }
 }//
 
 // export default EventDropZone;

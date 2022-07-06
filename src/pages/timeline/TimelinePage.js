@@ -6,14 +6,10 @@ import CreateEventSheet
     from "../../components/CreateEventSheet/CreateEventSheet";
 import FloatingButton from "../../components/reusables/FloatingButton/FloatingButton";
 import { userActions } from '../../redux/slices/user-slice';
-// import { isMobile } from 'react-device-detect';
-import { DndContext } from '@dnd-kit/core';
-
-
-
-
-import styles from './TimelinePage.module.scss';
 import Timeline from '../../components/Timeline/Timeline';
+import styles from './TimelinePage.module.scss';
+
+
 function TimelinePage(props) {
     const dispatcher = useDispatch();
     const userData = useSelector(state => state.userSlice.userData);

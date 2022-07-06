@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
 import React, {useState} from "react";
-// import { useDrag } from 'react-dnd'
-import {useDraggable} from '@dnd-kit/core';
+import {useDispatch} from "react-redux";
+import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
 
 import styles from './Event.module.scss';
-
-
 
 
 function Event(props) {
@@ -15,8 +13,10 @@ function Event(props) {
     const index = props.index;
     const timeValue = props.time ?? 0;
     const isChecked = props.isCompleted || false;
-
     const givenClasses = props.className;
+
+    const dispatcher = useDispatch();
+
     let classesEvent = `${styles['event']} ${givenClasses} `;
     let classesEventContent = `${styles['event__content']} `;
     let classesEventTitle = `${styles['event__title']} `;
@@ -46,47 +46,17 @@ function Event(props) {
         classesEventTime += styles['event__time--checked'];
     }
 
-    function padTo2Digits(num) {
-        return String(num).padStart(2, '0');
-    }
 
     let hoursAndMinutes = '99:99';
     if (timeValue) {
         const date = new Date(timeValue);
         hoursAndMinutes =
-            padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes());
-    }
-
-    // const [{ isDragging }, drag] = useDrag(() => ({
-    //     type: ItemTypes.EVENT,
-    //     item: {eventIndex: index},
-    //     // canDrop: (monitor) => {allowed(monitor.eventIndex, index)},
-    //     collect: (monitor) => ({
-    //         isDragging: !!monitor.isDragging(),
-    //         item: monitor.getItem(),
-    //     })
-    // }), [index])
-
-    function handleOnCheck(ev) {
-        props.onCheckEvent(index, !isChecked);
+            _padTo2Digits(date.getHours()) + ':' + _padTo2Digits(date.getMinutes());
     }
 
 
 
-    const {attributes, listeners, setNodeRef, transform} = useDraggable({
-        id: `${index}`,
-        data: {
-            index: `${index}`,
-        }
-      });
 
-    const style = transform ? {
-        transform: `translate3d(0, ${transform.y}px, 0)`,
-    } : undefined;
-
-    // const style = {
-    //     // transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    // };
 
     ///////////////////////////////////
     // JSX
@@ -116,8 +86,13 @@ function Event(props) {
             {/* content */}
             {/*/////////////////////////////////*/}
             <div className={classesEventContent}
-                 ref={setNodeRef} 
-                 style={style} {...listeners} {...attributes}>
+                 draggable
+                 onDragStart={handleOnDragStart}
+                 // onTouchStart={handleOnTouchStart}
+                 // onTouchEnd={handleOnTouchEnd}
+                 // onTouchMove={handleOnTouchMove}
+                 // onTouchCancel={handleOnTouchCancel}
+                 >
 
                 <div className={styles['event__left-section']}>
                     <p className={classesEventTitle}>{title}</p>
@@ -128,6 +103,49 @@ function Event(props) {
             </div>
         </div>
     );
+
+
+
+
+
+    ///////////////////////////////////
+    // FUNCTIONS
+    ///////////////////////////////////
+
+    function handleOnDragStart(ev) {
+        ev.dataTransfer.effectAllowed = "move";
+        ev.dataTransfer.setData("text/plain", `${index}`);
+
+        dispatcher(dragAndDropActions.setData({eventIndex: index}));
+    }
+
+    function handleOnTouchStart(ev) {
+        // ev.preventDefault();
+        const touches = ev.changedTouches;
+        console.log('touch start:', touches);
+    }
+
+
+    function handleOnTouchEnd(ev) {
+        console.log('touch end');
+    }
+
+    function handleOnTouchMove(ev) {
+        console.log('touch moving');
+    }
+
+    function handleOnTouchCancel(ev) {
+        console.log('touch canceled');
+    }
+
+    function handleOnCheck(ev) {
+        props.onCheckEvent(index, !isChecked);
+    }
+
+    function _padTo2Digits(num) {
+        return String(num).padStart(2, '0');
+    }
+
 }// Event
 
 Event.propTypes = {
