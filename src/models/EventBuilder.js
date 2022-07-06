@@ -2,7 +2,6 @@ import Event, {EventColor} from "./Event";
 
 export default class EventBuilder {
     id;
-    yIndex;
     title;
     time;
     color;
@@ -13,7 +12,6 @@ export default class EventBuilder {
 
     constructor (id, title) {
         this.id = id;
-        this.yIndex = Infinity;
         this.title = title;
         this.time = 0;
         this.color = EventColor.Default;
@@ -21,11 +19,6 @@ export default class EventBuilder {
         this.images = [];
         this.isImportant = false;
         this.isCompleted = false;
-    }
-
-    setYindex(value = Infinity) {
-        this.yIndex = value;
-        return this;
     }
 
     setTime(time = 0) {

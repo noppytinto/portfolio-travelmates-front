@@ -9,7 +9,6 @@ export const EventColor = {
 
 export default class Event {
     id;
-    yIndex;
     title;
     time;
     color;
@@ -21,7 +20,6 @@ export default class Event {
 
     constructor (builder) {
         this.id = builder.id;
-        this.yIndex = builder.yIndex;
         this.title = builder.title;
         this.time = builder.time;
         this.color = builder.color;

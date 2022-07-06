@@ -13,7 +13,6 @@ function TimelinePage(props) {
     const dispatcher = useDispatch();
     const userData = useSelector(state => state.userSlice.userData);
     const events = userData.events ?? [];
-    // const eventsArray = Array.from(events.values());
     const [showBottomSheet, setShowBottomSheet] = useState(false);
 
 
@@ -28,7 +27,7 @@ function TimelinePage(props) {
     
     function handleOnClickCreateEvent(ev, createdEvent) {
         console.log('event created:', createdEvent);
-        dispatcher(userActions.addEvent({event: createdEvent}));
+        dispatcher(userActions.addEvent({newEvent: createdEvent}));
         setShowBottomSheet(false);
     }
 

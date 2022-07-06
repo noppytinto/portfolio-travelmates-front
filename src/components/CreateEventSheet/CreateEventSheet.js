@@ -3,7 +3,6 @@ import BottomSheet from "../reusables/BottomSheet/BottomSheet";
 import TextField from "../reusables/TextField/TextField";
 import Card from "../reusables/Card/Card";
 import Button from "../reusables/Button/Button";
-import EventBuilder from "../../models/EventBuilder";
 import React from 'react';
 import styles from './CreateEventSheet.module.scss';
 
@@ -23,7 +22,17 @@ function CreateEventSheet(props) {
         const title = titleRef.current.value;
         if (!title) return;
 
-        const createdEvent = new EventBuilder(uuidv4(), title);
+        const createdEvent = {
+            id: uuidv4(),
+            title: title,
+            time: Date.now(),
+            color: '',
+            files: [],
+            images: [],
+            isImportant: false,
+            isCompleted: false,
+        }
+
         props.onClickCreateEvent(ev, createdEvent);
     }
 
