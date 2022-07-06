@@ -10,10 +10,12 @@ import styles from './Event.module.scss';
 function Event(props) {
     const color = props.color ?? '';
     const title = props.title ?? '';
-    const index = props.index;
+    const eventIndex = props.index;
     const timeValue = props.time ?? 0;
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
+
+    const [isHover, setIsHover] = useState(false);
 
     const dispatcher = useDispatch();
 
@@ -92,31 +94,56 @@ function Event(props) {
                  // onTouchEnd={handleOnTouchEnd}
                  // onTouchMove={handleOnTouchMove}
                  // onTouchCancel={handleOnTouchCancel}
+                 onMouseEnter={() => handleOnHover(true)}
+                 onMouseLeave={() => handleOnHover(false)}
                  >
+
+                {isHover && <button className={styles['event__btn-up']}
+                                    onClick={handleOnClickUp}>up</button>
+                }
+
 
                 <div className={styles['event__left-section']}>
                     <p className={classesEventTitle}>{title}</p>
                 </div>
 
-                <div className={styles['event__right-section']}>
-                </div>
+
+                <div className={styles['event__right-section']}></div>
+
+                {isHover && <button className={styles['event__btn-down']}
+                                    onClick={handleOnClickDown}>down</button>
+                }
+
             </div>
         </div>
     );
 
 
+    
 
 
 
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
+    function handleOnClickUp(ev) {
+        props.onClickUp(eventIndex);
+    }
+
+    function handleOnClickDown(ev) {
+        props.onClickDown(eventIndex);
+    }
+    
+    function handleOnHover(onHover) {
+        console.log('is hovered: ', onHover);
+        setIsHover(onHover);
+    }
 
     function handleOnDragStart(ev) {
         ev.dataTransfer.effectAllowed = "move";
-        ev.dataTransfer.setData("text/plain", `${index}`);
+        ev.dataTransfer.setData("text/plain", `${eventIndex}`);
 
-        dispatcher(dragAndDropActions.setData({eventIndex: index}));
+        dispatcher(dragAndDropActions.setData({eventIndex: eventIndex}));
     }
 
     function handleOnTouchStart(ev) {
@@ -139,7 +166,7 @@ function Event(props) {
     }
 
     function handleOnCheck(ev) {
-        props.onCheckEvent(index, !isChecked);
+        props.onCheckEvent(eventIndex, !isChecked);
     }
 
     function _padTo2Digits(num) {

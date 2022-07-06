@@ -84,12 +84,11 @@ function EventDropZone(props) {
 
         // Get the id of the target and add the moved element to the target's DOM
         const data = ev.dataTransfer.getData("text/plain");
-        console.log('dropped from:', data, ' to: ', currentDropZoneIndex);
+        console.log('moving from:', data, ' to: ', currentDropZoneIndex);
         setIsDragOver(false);
 
 
         props.onDropped(eventIndex, (eventIndex>currentDropZoneIndex) ? currentDropZoneIndex: currentDropZoneIndex-1);
-
     }
 
     function _canDrag(from, to) {

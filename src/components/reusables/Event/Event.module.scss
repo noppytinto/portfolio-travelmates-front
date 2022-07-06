@@ -52,6 +52,7 @@
   }
 
   &__content {
+    position: relative;
     margin-left: 1.2rem;
     padding: .8em 1.2em;
     display: flex;
@@ -86,6 +87,22 @@
   .event__content--red {
     color: var.$color--red-dark;
     background-color: var.$color--red-light;
+  }
+  
+  &__btn-up {
+    position: absolute;
+    top: -60%;
+    right: 0;
+    
+    padding: .5em 1em;
+  }
+  
+  &__btn-down {
+    position: absolute;
+    bottom: -60%;
+    right: 0;
+    
+    padding: .5em 1em;
   }
 
   @keyframes pop {

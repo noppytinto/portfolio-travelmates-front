@@ -29,6 +29,8 @@ function Timeline(props) {
                            time={event.time}
                            index={index}
                            onCheckEvent={handleOnCheckEvent}
+                           onClickUp={handleOnClickUp}
+                           onClickDown={handleOnClickDown}
                     />
                     <EventDropZone index={index + 1}
                                    onDropped={handleOnDropped}/>
@@ -41,6 +43,23 @@ function Timeline(props) {
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
+    function handleOnClickUp(eventIndex) {
+        const newPosition = eventIndex-1;
+        const currentPosition = eventIndex;
+        if (newPosition < 0) return;
+
+
+        dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
+    }
+
+    function handleOnClickDown(eventIndex) {
+        const newPosition = eventIndex+1;
+        const currentPosition = eventIndex;
+        if (newPosition >= events.length) return;
+
+        dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
+    }
+
     function handleOnDropped(currentPosition, newPosition) {
         console.log('moving from:', currentPosition, ' to:', newPosition);
         dispatcher(userActions.moveEvent({ currentPosition, newPosition, }));
