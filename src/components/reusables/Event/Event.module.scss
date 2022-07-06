@@ -5,43 +5,43 @@
   position: relative;
   color: var.$color--grey;
   font-weight: bold;
-  
-  
+
+
   &__indicator {
     position: absolute;
     top: 50%;
     left: -4rem;
     transform: translateY(-50%);
-    
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: .4rem;
   }
-  
+
   &__time {
     transition: all .2s;
 
   }
-  
+
   &__time--checked {
     opacity: .5;
   }
-  
-  &__btn-check{
+
+  &__btn-check {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     overflow: hidden;
-    
+
     border-color: transparent;
     background-color: transparent;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
   &__checkbox {
     aspect-ratio: 1;
     width: 30px;
@@ -49,7 +49,7 @@
     color: #dedede;
     background-color: #fff;
   }
-  
+
   &__content {
     margin-left: 1.2rem;
     padding: .8em 1.2em;
@@ -59,33 +59,42 @@
     border-radius: .5em;
     background-color: var.$color--grey-light;
     transition: all .2s;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
   }
-  
+
   .event__content--orange {
     color: var.$color-primary--orange-dark;
     background-color: var.$color-primary--orange-light;
   }
-  
+
   .event__content--green {
     color: var.$color--green-dark;
     background-color: var.$color--green-light;
   }
-  
+
   .event__content--blue {
     color: var.$color--blue-dark;
     background-color: var.$color--blue-light;
   }
-  
+
   .event__content--red {
     color: var.$color--red-dark;
     background-color: var.$color--red-light;
   }
-  
+
   @keyframes pop {
-    0% {transform: scale(0);}
-    100% {transform: scale(1);}
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
-  
+
   &__checked {
     color: var.$color-primary--orange;
     transition: all .2s;
@@ -94,7 +103,7 @@
     animation-fill-mode: forwards;
     animation-timing-function: ease-in;
   }
-  
+
   &__content:hover {
     cursor: pointer;
     transform: scale(1.01);
@@ -102,30 +111,41 @@
     // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     // box-shadow: .15em .15em .5em 0 rgba($color: #000000, $alpha: .35);
   }
-  
+
   &__content--checked {
     opacity: .5;
+    background-color: var.$color-primary--orange-light;
+    opacity: 0.8;
+    background: repeating-linear-gradient(-45deg, rgba(var.$color--grey, .5), 
+                                                  rgba(var.$color--grey, .5) 5px, 
+                                                  var.$color--grey-light-2 5px, 
+                                                  var.$color--grey-light-2 25px);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var.$color--grey-light;
   }
-  
 
-  
+
+
   &__left-section {
     //display: inline-block;
   }
-  
+
   &__right-section {
     //display: inline;
   }
-  
+
   &__title--checked {
     text-decoration-line: line-through;
-  
-  
-  }
-  
-  
 
-}// .event
+
+  }
+
+
+
+}
+
+// .event
 
 
 
@@ -134,4 +154,3 @@
 ///////////////////////////////////
 // EVENT COLORS
 ///////////////////////////////////
-
