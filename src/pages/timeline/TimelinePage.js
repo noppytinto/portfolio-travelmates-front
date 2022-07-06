@@ -7,12 +7,9 @@ import CreateEventSheet
     from "../../components/CreateEventSheet/CreateEventSheet";
 import FloatingButton from "../../components/reusables/FloatingButton/FloatingButton";
 import { userActions } from '../../redux/slices/user-slice';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { TouchBackend } from 'react-dnd-touch-backend';
 import EventDropZone from './EventDropZone/EventDropZone';
 import styles from './TimelinePage.module.scss';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 
 function TimelinePage(props) {
     const dispatcher = useDispatch();
@@ -41,7 +38,7 @@ function TimelinePage(props) {
 
     function handleOnDropped(currentPosition, newPosition) {
         console.log('moving from:', currentPosition, ' to:', newPosition);
-        dispatcher(userActions.moveEvent({ currentPosition, newPosition, }));
+        // dispatcher(userActions.moveEvent({ currentPosition, newPosition, }));
 
     }
 
@@ -51,7 +48,7 @@ function TimelinePage(props) {
     }
 
     function isTouchDevice() {
-        return isMobile;
+        return true;
       }
 
     ///////////////////////////////////
@@ -59,7 +56,6 @@ function TimelinePage(props) {
     ///////////////////////////////////
     return (
         <div className={styles['timeline']}>
-            <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend} >
                 
 
                 <ul className={styles['timeline__content']}>
@@ -79,7 +75,6 @@ function TimelinePage(props) {
                         </li>)}
                     )}
                 </ul>
-            </DndProvider>
 
             <FloatingButton className={styles['timeline__btn-add']}
                 onClick={handleAddEventButton}>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
 import React, {useState} from "react";
-import { useDrag } from 'react-dnd'
+// import { useDrag } from 'react-dnd'
 import styles from './Event.module.scss';
 
 
@@ -57,15 +57,15 @@ function Event(props) {
             padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes());
     }
 
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: ItemTypes.EVENT,
-        item: {eventIndex: index},
-        // canDrop: (monitor) => {allowed(monitor.eventIndex, index)},
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging(),
-            item: monitor.getItem(),
-        })
-    }), [index])
+    // const [{ isDragging }, drag] = useDrag(() => ({
+    //     type: ItemTypes.EVENT,
+    //     item: {eventIndex: index},
+    //     // canDrop: (monitor) => {allowed(monitor.eventIndex, index)},
+    //     collect: (monitor) => ({
+    //         isDragging: !!monitor.isDragging(),
+    //         item: monitor.getItem(),
+    //     })
+    // }), [index])
 
     function handleOnCheck(ev) {
         props.onCheckEvent(index, !isChecked);
@@ -77,7 +77,7 @@ function Event(props) {
     ///////////////////////////////////
     return (
         <div className={classesEvent}
-             style={{opacity: isDragging ? 0.5 : 1,}}
+            //  style={{opacity: isDragging ? 0.5 : 1,}}
              >
 
             <div className={styles['event__indicator']}>
@@ -102,8 +102,8 @@ function Event(props) {
             {/* content */}
             {/*/////////////////////////////////*/}
             <div className={classesEventContent}
-                 ref={drag}
-                 style={{opacity: isDragging ? 0.5 : 1,}}
+                //  ref={drag}
+                //  style={{opacity: isDragging ? 0.5 : 1,}}
             >
                 <div className={styles['event__left-section']}>
                     <p className={classesEventTitle}>{title}</p>
