@@ -71,6 +71,7 @@ function Event(props) {
         props.onCheckEvent(index, !isChecked);
     }
  
+
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
@@ -123,7 +124,7 @@ Event.propTypes = {
 }
 
 function propsAreEqual(prev, next) {
-    return (prev.isCompleted === next.isCompleted);
+    return (prev.index === next.index) && (prev.isCompleted === next.isCompleted);
 }
 
 // export default Event;
