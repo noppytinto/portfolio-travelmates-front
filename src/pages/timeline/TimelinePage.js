@@ -7,13 +7,12 @@ import CreateEventSheet
     from "../../components/CreateEventSheet/CreateEventSheet";
 import FloatingButton from "../../components/reusables/FloatingButton/FloatingButton";
 import { userActions } from '../../redux/slices/user-slice';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import EventDropZone from './EventDropZone/EventDropZone';
 import styles from './TimelinePage.module.scss';
-
-
+import { isMobile } from 'react-device-detect';
 
 function TimelinePage(props) {
     const dispatcher = useDispatch();
@@ -51,13 +50,17 @@ function TimelinePage(props) {
         
     }
 
+    function isTouchDevice() {
+        return isMobile;
+      }
 
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
         <div className={styles['timeline']}>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend} >
+                
 
                 <ul className={styles['timeline__content']}>
                     {events.map((event, index) => {
