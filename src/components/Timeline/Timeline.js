@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import EventDropZone from './EventDropZone/EventDropZone';
 import Event from '../../components/reusables/Event/Event';
 import { useDispatch } from "react-redux";
@@ -11,6 +11,8 @@ import styles from './Timeline.module.scss';
 function Timeline(props) {
     const events = props.events ?? [];
     const dispatcher = useDispatch();
+    const showMoveButtons = useRef(false);
+    const currentHoveredEvent = useRef(-1);
 
 
 
@@ -23,6 +25,7 @@ function Timeline(props) {
                 <li key={index}>
                     {(index === 0) && <EventDropZone index={index}
                                                      onDropped={handleOnDropped}/>}
+
                     <Event title={event.title}
                            color={event.color}
                            isCompleted={event.isCompleted}
@@ -31,6 +34,8 @@ function Timeline(props) {
                            onCheckEvent={handleOnCheckEvent}
                            onClickUp={handleOnClickUp}
                            onClickDown={handleOnClickDown}
+                           showMoveButtons={(currentHoveredEvent.current === index) ? true : false}
+                           onLostFocus={() => currentHoveredEvent.current = -1}
                     />
                     <EventDropZone index={index + 1}
                                    onDropped={handleOnDropped}/>
@@ -48,6 +53,7 @@ function Timeline(props) {
         const currentPosition = eventIndex;
         if (newPosition < 0) return;
 
+        currentHoveredEvent.current = newPosition;
 
         dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
     }
@@ -56,6 +62,8 @@ function Timeline(props) {
         const newPosition = eventIndex+1;
         const currentPosition = eventIndex;
         if (newPosition >= events.length) return;
+
+        currentHoveredEvent.current = newPosition;
 
         dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
     }
