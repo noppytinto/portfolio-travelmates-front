@@ -6,6 +6,7 @@ import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
 import {isMobile} from 'react-device-detect';
 
 import styles from './Event.module.scss';
+import useSelect from "../../../hooks/use-select";
 
 
 function Event(props) {
@@ -16,10 +17,11 @@ function Event(props) {
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
     const keepShowingMoveButtons = (isMobile && props.showMoveEventButtons) || false;
-
-    const [isSelected, setIsSelected] = useState(false);
-
     const eventRef = useRef();
+
+    // const [isSelected, setIsSelected] = useState(false);
+    const [isSelected, setIsSelected, handleOnSelect] = useSelect(eventRef);
+
     const dispatcher = useDispatch();
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
@@ -58,17 +60,7 @@ function Event(props) {
             _padTo2Digits(date.getHours()) + ':' + _padTo2Digits(date.getMinutes());
     }
 
-    const handleOnClickEvents = useCallback((ev) => {
-        if (ev.target === eventRef.current) {
-            console.log('clicked inside');
-        }
-        else {
-            console.log('clicked outside');
-            setIsSelected(false);
-            document.removeEventListener('click', handleOnClickEvents);
-        }
 
-    }, []);
 
 
     //
@@ -138,16 +130,7 @@ function Event(props) {
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
-    function handleOnSelect(ev) {
-        if (!isMobile) return;
 
-        if (!isSelected) {
-            document.removeEventListener('click', handleOnClickEvents);
-            document.addEventListener('click', handleOnClickEvents);
-
-            setIsSelected(true);
-        }
-    }
 
     function handleOnClickUp(ev) {
         ev.stopPropagation();
