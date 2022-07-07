@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import EventDropZone from './EventDropZone/EventDropZone';
 import Event from '../../components/reusables/Event/Event';
 import { useDispatch } from "react-redux";
@@ -11,10 +11,31 @@ import styles from './Timeline.module.scss';
 function Timeline(props) {
     const events = props.events ?? [];
     const dispatcher = useDispatch();
-    const showMoveButtons = useRef(false);
-    const currentHoveredEvent = useRef(-1);
+    const currentHoveredEventIndex = useRef(-1);
+    const [currentEventClicked, setCurrentEventClicked] = useState(-1);
+
+    const handleClickOutside = useCallback((ev, specifiedElement, setIsClicked) => {
+        // console.log('clicking outside');
+        if (specifiedElement) {
+            const isClickInside = specifiedElement.contains(ev.target);
+
+            if (!isClickInside) {
+                setIsClicked?.(false);
+                console.log('clicking outside:', currentHoveredEventIndex.current);
+                currentHoveredEventIndex.current = -1;
+                setCurrentEventClicked(currentEventClicked+1);
+                // document.removeEventListener('click', handleClickOutside);
+            }
+        }
+
+    }, [currentHoveredEventIndex, currentEventClicked, setCurrentEventClicked]);
 
 
+    useEffect(() => {
+        console.log('new position: ', currentHoveredEventIndex.current);
+        
+
+    }, [currentHoveredEventIndex]);
 
     ///////////////////////////////////
     // JSX
@@ -34,8 +55,9 @@ function Timeline(props) {
                            onCheckEvent={handleOnCheckEvent}
                            onClickUp={handleOnClickUp}
                            onClickDown={handleOnClickDown}
-                           showMoveButtons={(currentHoveredEvent.current === index) ? true : false}
-                           onLostFocus={() => currentHoveredEvent.current = -1}
+                           showMoveButtons={(currentHoveredEventIndex.current === index) ? true : false}
+                           // showMoveButtons={(currentEventClicked === index) ? true : false}
+                           onClick={handleOnClickEvent}
                     />
                     <EventDropZone index={index + 1}
                                    onDropped={handleOnDropped}/>
@@ -48,14 +70,31 @@ function Timeline(props) {
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
+    function handleOnClickEvent(ev, eventIndex, eventElement, setIsClicked) {
+        // add onClickOutside listener only on clicked element
+
+        // remove old listener
+        // setIsClicked?.(false);
+        if(eventIndex >=0 ) {
+            document.removeEventListener('click', (ev) => handleClickOutside(ev, eventElement, setIsClicked));
+            document.addEventListener('click', (ev) => handleClickOutside(ev, eventElement, setIsClicked));
+
+            //
+            currentHoveredEventIndex.current = eventIndex;
+        }
+
+    }
+
     function handleOnClickUp(eventIndex) {
         const newPosition = eventIndex-1;
         const currentPosition = eventIndex;
         if (newPosition < 0) return;
 
-        currentHoveredEvent.current = newPosition;
+        currentHoveredEventIndex.current = newPosition;
 
         dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
+        // setCurrentEventClicked(newPosition);
+        // console.log('moving event from:', currentPosition, ' to: ', newPosition);
     }
 
     function handleOnClickDown(eventIndex) {
@@ -63,9 +102,12 @@ function Timeline(props) {
         const currentPosition = eventIndex;
         if (newPosition >= events.length) return;
 
-        currentHoveredEvent.current = newPosition;
+        currentHoveredEventIndex.current = newPosition;
 
         dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
+        // setCurrentEventClicked(newPosition);
+        // console.log('moving event from:', currentPosition, ' to: ', newPosition);
+
     }
 
     function handleOnDropped(currentPosition, newPosition) {
@@ -78,9 +120,6 @@ function Timeline(props) {
         props.onCheckEvent(index, checked);
     }
 
-    function isTouchDevice() {
-        return true;
-    }
 
     function handleDragEnd(event) {
         console.log('element dropped');

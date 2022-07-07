@@ -6,7 +6,6 @@ import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
 import {isMobile} from 'react-device-detect';
 
 import styles from './Event.module.scss';
-import useHover from "../../../hooks/use-hover";
 
 
 function Event(props) {
@@ -16,21 +15,18 @@ function Event(props) {
     const timeValue = props.time ?? 0;
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
-
     const keepShowingMoveButtons = (props.showMoveButtons && isMobile) || false;
-    // console.log('keep showing buttons:', keepShowingMoveButtons, 'on: ', eventIndex);
-
-    if (keepShowingMoveButtons) {
-        console.log('keepoing buttons activated on: ', title);
-    }
 
     const eventContentRef = useRef();
-    const [isHover, setIsHover] = useHover(eventContentRef, handleOnHover ,keepShowingMoveButtons);
+    // const [isHover, setIsHover] = useHover(eventContentRef, handleOnHover, handleOnClickOutside, keepShowingMoveButtons);
+    const [isClicked, setIsClicked] = useState(false);
+
+
 
     const dispatcher = useDispatch();
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
-    let classesEventContent = `${styles['event__content']} ${((isHover) && styles['event__content--hover'])}`;
+    let classesEventContent = `${styles['event__content']} ${((isClicked || keepShowingMoveButtons) && styles['event__content--hover'])} `;
     let classesEventTitle = `${styles['event__title']} `;
     let classesEventTime = `${styles['event__time']} `;
 
@@ -97,16 +93,11 @@ function Event(props) {
             <div className={classesEventContent}
                  draggable
                  onDragStart={handleOnDragStart}
-                 // onTouchStart={handleOnTouchStart}
-                 // onTouchEnd={handleOnTouchEnd}
-                 // onTouchMove={handleOnTouchMove}
-                 // onTouchCancel={handleOnTouchCancel}
-                 // onMouseEnter={() => handleOnHover(true)}
-                 onMouseLeave={() => console.log('leaving')}
                  ref={eventContentRef}
+                 onClick={handleOnClick}
                  >
 
-                {isMobile && (isHover || keepShowingMoveButtons) && <button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
+                {isMobile && (isClicked || keepShowingMoveButtons) && <button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
                                     onClick={handleOnClickUp}>
                     <assets.IconArrowUp className={styles['event__icon-move']}/>
                 </button>
@@ -120,7 +111,7 @@ function Event(props) {
 
                 <div className={styles['event__right-section']}></div>
 
-                {isMobile && (isHover || keepShowingMoveButtons) && <button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
+                {isMobile && (isClicked || keepShowingMoveButtons) && <button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
                                     onClick={handleOnClickDown}>
                     <assets.IconArrowDown className={styles['event__icon-move']}/>
                 </button>
@@ -138,25 +129,31 @@ function Event(props) {
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
-    function handleOnClickUp(ev) {
-        props.onClickUp(eventIndex);
-        setIsHover(false);
+    function handleOnClick(ev) {
+        if (!isMobile) return;
+
+        console.log('event:', title, ' clicked');
+        if (!isClicked) {
+            setIsClicked(true);
+            props.onClick(ev, eventIndex, eventContentRef.current, setIsClicked);
+        }
+
     }
 
-    function handleOnBlur(ev) {
-        console.log('event: ', eventIndex, ' blurred');
+    function handleOnClickUp(ev) {
+        if (!isMobile) return;
+
+        ev.stopPropagation();
+        setIsClicked(false);
+        props.onClickUp(eventIndex);
     }
 
     function handleOnClickDown(ev) {
-        props.onClickDown(eventIndex);
-        setIsHover(false);
-    }
-    
-    function handleOnHover(onHover) {
         if (!isMobile) return;
 
-        console.log('focus on: ', eventIndex, ' -> ', onHover);
-        // if (!onHover && keepShowingMoveButtons) props.onLostFocus();
+        ev.stopPropagation();
+        setIsClicked(false);
+        props.onClickDown(eventIndex);
     }
 
     function handleOnDragStart(ev) {
@@ -164,25 +161,6 @@ function Event(props) {
         ev.dataTransfer.setData("text/plain", `${eventIndex}`);
 
         dispatcher(dragAndDropActions.setData({eventIndex: eventIndex}));
-    }
-
-    function handleOnTouchStart(ev) {
-        // ev.preventDefault();
-        const touches = ev.changedTouches;
-        console.log('touch start:', touches);
-    }
-
-
-    function handleOnTouchEnd(ev) {
-        console.log('touch end');
-    }
-
-    function handleOnTouchMove(ev) {
-        console.log('touch moving');
-    }
-
-    function handleOnTouchCancel(ev) {
-        console.log('touch canceled');
     }
 
     function handleOnCheck(ev) {

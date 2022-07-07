@@ -19,6 +19,30 @@ function TimelinePage(props) {
 
 
 
+
+    ///////////////////////////////////
+    // JSX
+    ///////////////////////////////////
+    return (
+        <div className={styles['timeline-page']}>
+            <Timeline events={events} onCheckEvent={handleOnCheckEvent}/>
+
+            <FloatingButton className={styles['timeline-page__btn-add']}
+                onClick={handleAddEventButton}>
+                <assets.IconAdd className={styles['timelin-pagee__icon-add']} />
+            </FloatingButton>
+
+            {showBottomSheet &&
+                <CreateEventSheet onClickOutside={() => setShowBottomSheet(false)}
+                    onClickCancel={() => setShowBottomSheet(false)}
+                    onClickCreateEvent={handleOnClickCreateEvent}
+                />
+            }
+        </div>
+
+    );
+
+
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
@@ -39,28 +63,6 @@ function TimelinePage(props) {
 
     }
 
-
-    ///////////////////////////////////
-    // JSX
-    ///////////////////////////////////
-    return (
-        <div className={styles['timeline']}>
-            <Timeline events={events} onCheckEvent={handleOnCheckEvent}/>
-
-            <FloatingButton className={styles['timeline__btn-add']}
-                onClick={handleAddEventButton}>
-                <assets.IconAdd className={styles['timeline__icon-add']} />
-            </FloatingButton>
-
-            {showBottomSheet &&
-                <CreateEventSheet onClickOutside={() => setShowBottomSheet(false)}
-                    onClickCancel={() => setShowBottomSheet(false)}
-                    onClickCreateEvent={handleOnClickCreateEvent}
-                />
-            }
-        </div>
-
-    );
 }// TimelinePage
 
 /*

@@ -159,8 +159,7 @@
   &__content--checked {
     opacity: .5;
     background-color: var.$color-primary--orange-light;
-    opacity: 0.8;
-    background: repeating-linear-gradient(-45deg, rgba(var.$color--grey, .3), 
+    background: repeating-linear-gradient(-45deg, rgba(var.$color--grey, .3),
                                                   rgba(var.$color--grey, .3) 5px, 
                                                   var.$color--grey-light-2 5px, 
                                                   var.$color--grey-light-2 25px);
