@@ -13,6 +13,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AddIcon from '@mui/icons-material/Add';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 // icons
 export const iconBrokenImage = '/images/icons/broken_image_black_24dp.svg';
@@ -33,6 +36,8 @@ export const IconLogout = LogoutIcon;
 export const IconRadioUnchecked = RadioButtonUncheckedIcon;
 export const IconRadioChecked = CheckCircleIcon;
 export const IconAdd = AddIcon;
+export const IconArrowUp = ArrowUpwardIcon;
+export const IconArrowDown = ArrowDownwardIcon;
 
 
 // colors

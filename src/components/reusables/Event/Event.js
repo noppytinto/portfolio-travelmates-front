@@ -3,6 +3,7 @@ import * as assets from '../../../utils/assets-manager'
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
+import {isMobile} from 'react-device-detect';
 
 import styles from './Event.module.scss';
 
@@ -98,8 +99,10 @@ function Event(props) {
                  onMouseLeave={() => handleOnHover(false)}
                  >
 
-                {isHover && <button className={styles['event__btn-up']}
-                                    onClick={handleOnClickUp}>up</button>
+                {isMobile && isHover && <button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
+                                    onClick={handleOnClickUp}>
+                    <assets.IconArrowUp className={styles['event__icon-move']}/>
+                </button>
                 }
 
 
@@ -110,8 +113,10 @@ function Event(props) {
 
                 <div className={styles['event__right-section']}></div>
 
-                {isHover && <button className={styles['event__btn-down']}
-                                    onClick={handleOnClickDown}>down</button>
+                {isMobile && isHover && <button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
+                                    onClick={handleOnClickDown}>
+                    <assets.IconArrowDown className={styles['event__icon-move']}/>
+                </button>
                 }
 
             </div>
