@@ -18,8 +18,6 @@ function TimelinePage(props) {
 
 
 
-
-
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
@@ -28,8 +26,10 @@ function TimelinePage(props) {
             <Timeline events={events} onCheckEvent={handleOnCheckEvent}/>
 
             <FloatingButton className={styles['timeline-page__btn-add']}
-                onClick={handleAddEventButton}>
+                            onClick={handleAddEventButton}>
+
                 <assets.IconAdd className={styles['timelin-pagee__icon-add']} />
+
             </FloatingButton>
 
             {showBottomSheet &&

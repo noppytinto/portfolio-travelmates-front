@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
 import {isMobile} from 'react-device-detect';
@@ -15,18 +15,15 @@ function Event(props) {
     const timeValue = props.time ?? 0;
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
-    const keepShowingMoveButtons = (props.showMoveButtons && isMobile) || false;
+    const keepShowingMoveButtons = (isMobile && props.showMoveEventButtons) || false;
 
-    const eventContentRef = useRef();
-    // const [isHover, setIsHover] = useHover(eventContentRef, handleOnHover, handleOnClickOutside, keepShowingMoveButtons);
-    const [isClicked, setIsClicked] = useState(false);
+    const [isSelected, setIsSelected] = useState(false);
 
-
-
+    const eventRef = useRef();
     const dispatcher = useDispatch();
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
-    let classesEventContent = `${styles['event__content']} ${((isClicked || keepShowingMoveButtons) && styles['event__content--hover'])} `;
+    let classesEventContent = `${styles['event__content']} ${(isSelected && styles['event__content--selected'])} `;
     let classesEventTitle = `${styles['event__title']} `;
     let classesEventTime = `${styles['event__time']} `;
 
@@ -54,13 +51,32 @@ function Event(props) {
         classesEventTime += styles['event__time--checked'];
     }
 
-
     let hoursAndMinutes = '99:99';
     if (timeValue) {
         const date = new Date(timeValue);
         hoursAndMinutes =
             _padTo2Digits(date.getHours()) + ':' + _padTo2Digits(date.getMinutes());
     }
+
+    const handleOnClickEvents = useCallback((ev) => {
+        if (ev.target === eventRef.current) {
+            console.log('clicked inside');
+        }
+        else {
+            console.log('clicked outside');
+            setIsSelected(false);
+            document.removeEventListener('click', handleOnClickEvents);
+        }
+
+    }, []);
+
+
+    //
+    useEffect(() => {
+        if (keepShowingMoveButtons) {
+            handleOnSelect();
+        }
+    }, [keepShowingMoveButtons]);
 
 
     ///////////////////////////////////
@@ -84,21 +100,17 @@ function Event(props) {
                 </button>
             </div>
 
-
-
-
             {/*/////////////////////////////////*/}
             {/* content */}
             {/*/////////////////////////////////*/}
             <div className={classesEventContent}
                  draggable
                  onDragStart={handleOnDragStart}
-                 ref={eventContentRef}
-                 onClick={handleOnClick}
-                 >
+                 ref={eventRef}
+                 onClick={handleOnSelect}>
 
-                {isMobile && (isClicked || keepShowingMoveButtons) && <button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
-                                    onClick={handleOnClickUp}>
+                {isMobile && isSelected && <button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
+                                                   onClick={handleOnClickUp}>
                     <assets.IconArrowUp className={styles['event__icon-move']}/>
                 </button>
                 }
@@ -111,8 +123,8 @@ function Event(props) {
 
                 <div className={styles['event__right-section']}></div>
 
-                {isMobile && (isClicked || keepShowingMoveButtons) && <button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
-                                    onClick={handleOnClickDown}>
+                {isMobile && isSelected && <button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
+                                                   onClick={handleOnClickDown}>
                     <assets.IconArrowDown className={styles['event__icon-move']}/>
                 </button>
                 }
@@ -122,37 +134,36 @@ function Event(props) {
     );
 
 
-    
-
-
 
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
-    function handleOnClick(ev) {
+    function handleOnSelect(ev) {
         if (!isMobile) return;
 
-        console.log('event:', title, ' clicked');
-        if (!isClicked) {
-            setIsClicked(true);
-            props.onClick(ev, eventIndex, eventContentRef.current, setIsClicked);
-        }
+        if (!isSelected) {
+            document.removeEventListener('click', handleOnClickEvents);
+            document.addEventListener('click', handleOnClickEvents);
 
+            setIsSelected(true);
+        }
     }
 
     function handleOnClickUp(ev) {
+        ev.stopPropagation();
+
         if (!isMobile) return;
 
-        ev.stopPropagation();
-        setIsClicked(false);
+        setIsSelected(false);
         props.onClickUp(eventIndex);
     }
 
     function handleOnClickDown(ev) {
+        ev.stopPropagation();
+
         if (!isMobile) return;
 
-        ev.stopPropagation();
-        setIsClicked(false);
+        setIsSelected(false);
         props.onClickDown(eventIndex);
     }
 

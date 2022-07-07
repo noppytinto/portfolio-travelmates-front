@@ -97,7 +97,8 @@
     box-shadow: 0 .2em 1em -.3em rgba(0,0,0,.3);
     backdrop-filter: blur(3px);
     
-    padding: .5em;
+    padding: .7em;
+    //margin: 1em;
     
     display: flex;
     align-items: center;
@@ -150,7 +151,7 @@
   //  // box-shadow: .15em .15em .5em 0 rgba($color: #000000, $alpha: .35);
   //}
   
-  &__content--hover {
+  &__content--selected {
     cursor: pointer;
     transform: scale(1.01);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
