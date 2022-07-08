@@ -136,22 +136,12 @@ function Event(props) {
 
     function handleOnClickUp(ev) {
         ev.stopPropagation();
-
-        if (!isMobile) return;
-
-        document.removeEventListener('click', resetSelection);
-        setIsSelect(false);
-        props.onClickUp(eventIndex);
+        props.onClickUp(eventIndex, setIsSelect, resetSelection);
     }
 
     function handleOnClickDown(ev) {
         ev.stopPropagation();
-
-        if (!isMobile) return;
-
-        document.removeEventListener('click', resetSelection);
-        setIsSelect(false);
-        props.onClickDown(eventIndex);
+        props.onClickDown(eventIndex, setIsSelect, resetSelection);
     }
 
     function handleOnDragStart(ev) {

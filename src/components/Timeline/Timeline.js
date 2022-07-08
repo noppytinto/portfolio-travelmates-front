@@ -3,6 +3,7 @@ import EventDropZone from './EventDropZone/EventDropZone';
 import Event from '../../components/reusables/Event/Event';
 import { useDispatch } from "react-redux";
 import { userActions } from '../../redux/slices/user-slice';
+import {isMobile} from 'react-device-detect';
 
 
 import styles from './Timeline.module.scss';
@@ -43,20 +44,28 @@ function Timeline(props) {
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
-    function handleOnClickUp(eventIndex) {
+    function handleOnClickUp(eventIndex, setIsSelect, resetSelection) {
+        if (!isMobile) return;
         const newPosition = eventIndex-1;
         const currentPosition = eventIndex;
         if (newPosition < 0) return;
+
+        document.removeEventListener('click', resetSelection);
+        setIsSelect(false);
 
         currentSelectedEventIndex.current = newPosition;
 
         dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
     }
 
-    function handleOnClickDown(eventIndex) {
+    function handleOnClickDown(eventIndex, setIsSelect, resetSelection) {
+        if (!isMobile) return;
         const newPosition = eventIndex+1;
         const currentPosition = eventIndex;
         if (newPosition >= events.length) return;
+
+        document.removeEventListener('click', resetSelection);
+        setIsSelect(false);
 
         currentSelectedEventIndex.current = newPosition;
 
