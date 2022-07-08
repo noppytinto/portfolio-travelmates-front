@@ -105,23 +105,21 @@ function Event(props) {
                  onDragStart={handleOnDragStart}
                  ref={eventRef}
                  onClick={handleOnClick}
-
-                //  initial={'hide'}
-                //  animate={'show'}
-
                  >
- 
-                
-                    {isMobile && isSelect && <motion.button  className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
-                                                            onClick={handleOnClickUp}                                                    
-                                                            initial={'hide'}
-                                                            animate={'show'}
-                                                            exit={'hide'}
-                                                            variants={moveButtonsVariants}
-                                                            >
+
+
+                {isMobile && isSelect &&
+                    <motion.button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
+                                   onClick={handleOnClickUp}
+                                   initial={'hide'}
+                                   animate={'show'}
+                                   exit={'hide'}
+                                   variants={moveButtonsVariants}>
+
                         <assets.IconArrowUp className={styles['event__icon-move']}/>
+
                     </motion.button>
-                    }
+                }
 
 
 

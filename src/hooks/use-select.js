@@ -5,6 +5,8 @@ function useSelect(targetElementRef) {
     const [isSelect, setIsSelect] = useState(false);
 
     const handleOnClick = useCallback((ev) => {
+        if ( ! targetElementRef.current) return;
+
         const isTargetElement = targetElementRef.current.contains(ev.target);
 
         if (isTargetElement) {
