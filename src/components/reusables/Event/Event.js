@@ -16,7 +16,7 @@ function Event(props) {
     const timeValue = props.time ?? 0;
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
-    const keepShowingMoveButtons = (isMobile && props.showMoveEventButtons) || false;
+    const isForceSelect = (props.isForceSelect) || false;
     const eventRef = useRef();
 
     const [isSelect, setIsSelect, triggerSelection, resetSelection] = useSelect(eventRef);
@@ -61,12 +61,12 @@ function Event(props) {
 
     //
     useEffect(() => {
-        if (keepShowingMoveButtons) {
+        if (isMobile && isForceSelect) {
             // when the event is moved, the "selected" state must be kept
             // therefore we must trigger this selection somehow
             triggerSelection();
         }
-    }, [keepShowingMoveButtons]);
+    }, [isMobile, isForceSelect]);
 
 
     ///////////////////////////////////

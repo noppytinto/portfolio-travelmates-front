@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import EventDropZone from './EventDropZone/EventDropZone';
 import Event from '../../components/reusables/Event/Event';
 import { useDispatch } from "react-redux";
@@ -31,7 +31,7 @@ function Timeline(props) {
                            onCheckEvent={handleOnCheckEvent}
                            onClickUp={handleOnClickUp}
                            onClickDown={handleOnClickDown}
-                           showMoveEventButtons={(currentSelectedEventIndex.current === index) ? true : false}
+                           isForceSelect={(currentSelectedEventIndex.current === index) ? true : false}
                     />
                     <EventDropZone index={index + 1} onDropped={handleOnDropped}/>
                 </li>
@@ -73,16 +73,16 @@ function Timeline(props) {
         props.onCheckEvent(index, checked);
     }
 
-    function handleDragEnd(event) {
-        console.log('element dropped');
-        // console.log(event.over?.id);
-        console.log('from: ', event.active?.data?.current?.index);
-        console.log('to: ', event.over?.data?.current?.index);
+    // function handleDragEnd(event) {
+    //     console.log('element dropped');
+    //     // console.log(event.over?.id);
+    //     console.log('from: ', event.active?.data?.current?.index);
+    //     console.log('to: ', event.over?.data?.current?.index);
 
-        // if (event.over && event.over.id === 'droppable') {
-        //   console.log('element dropped');
-        // }
-    }
+    //     // if (event.over && event.over.id === 'droppable') {
+    //     //   console.log('element dropped');
+    //     // }
+    // }
 }// 
 
 export default Timeline;
