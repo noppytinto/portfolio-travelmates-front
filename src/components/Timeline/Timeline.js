@@ -4,6 +4,7 @@ import Event from '../../components/reusables/Event/Event';
 import { useDispatch } from "react-redux";
 import { userActions } from '../../redux/slices/user-slice';
 import {isMobile} from 'react-device-detect';
+import { v4 as uuidv4 } from 'uuid';
 
 
 import styles from './Timeline.module.scss';
@@ -21,7 +22,7 @@ function Timeline(props) {
     return (
         <ul className={styles['timeline']}>
             {events.map((event, index) =>
-                <li key={index}>
+                <li key={uuidv4()}>
                     {(index === 0) && <EventDropZone index={index} onDropped={handleOnDropped}/>}
 
                     <Event title={event.title}

@@ -5,7 +5,7 @@ function useSelect(targetElementRef) {
     const [isSelect, setIsSelect] = useState(false);
 
     const handleOnClick = useCallback((ev) => {
-        const isTargetElement = ev.target === targetElementRef.current;
+        const isTargetElement = targetElementRef.current.contains(ev.target);
 
         if (isTargetElement) {
             console.log('clicked inside element');
@@ -19,6 +19,8 @@ function useSelect(targetElementRef) {
     }, [setIsSelect]);
 
     function triggerSelection(ev) {
+        // console.log('hook setup');
+
         // Add event listener to current clicked element.
         // The event listener, is used to listens for outside clicks.
         if (!isSelect) {
