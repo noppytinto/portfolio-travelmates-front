@@ -4,20 +4,15 @@ import React, {useEffect, useRef} from "react";
 import {useDispatch} from "react-redux";
 import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
 import {isMobile} from 'react-device-detect';
-
-import styles from './Event.module.scss';
 import useSelect from "../../../hooks/use-select";
 import { AnimatePresence, motion } from 'framer-motion';
+import styles from './Event.module.scss';
 
 const moveButtonsVariants = {
     show:{ scale: 1, transition: {duration: 0.2}},
     hide:{ scale: 0, transition: {duration: 0.1}},
 }
 
-const eventVariants = {
-    moveDown:{ y: 100, transition: {duration: 0.2}},
-    hide:{ y: 100, transition: {duration: 0.1}},
-}
 
 function Event(props) {
     const color = props.color ?? '';
