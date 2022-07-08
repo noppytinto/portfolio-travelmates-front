@@ -7,7 +7,17 @@ import {isMobile} from 'react-device-detect';
 
 import styles from './Event.module.scss';
 import useSelect from "../../../hooks/use-select";
+import { AnimatePresence, motion } from 'framer-motion';
 
+const moveButtonsVariants = {
+    show:{ scale: 1, transition: {duration: 0.2}},
+    hide:{ scale: 0, transition: {duration: 0.1}},
+}
+
+const eventVariants = {
+    moveDown:{ y: 100, transition: {duration: 0.2}},
+    hide:{ y: 100, transition: {duration: 0.1}},
+}
 
 function Event(props) {
     const color = props.color ?? '';
@@ -73,7 +83,9 @@ function Event(props) {
     // JSX
     ///////////////////////////////////
     return (
-        <div className={classesEvent}>
+        <AnimatePresence>  
+        
+        <div className={classesEvent}   >
 
             <div className={styles['event__indicator']}>
                 <p className={classesEventTime}>{hoursAndMinutes}</p>
@@ -97,13 +109,25 @@ function Event(props) {
                  draggable
                  onDragStart={handleOnDragStart}
                  ref={eventRef}
-                 onClick={handleOnClick}>
+                 onClick={handleOnClick}
 
-                {isMobile && isSelect && <button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
-                                                   onClick={handleOnClickUp}>
-                    <assets.IconArrowUp className={styles['event__icon-move']}/>
-                </button>
-                }
+                //  initial={'hide'}
+                //  animate={'show'}
+
+                 >
+ 
+                
+                    {isMobile && isSelect && <motion.button  className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
+                                                            onClick={handleOnClickUp}                                                    
+                                                            initial={'hide'}
+                                                            animate={'show'}
+                                                            exit={'hide'}
+                                                            variants={moveButtonsVariants}
+                                                            >
+                        <assets.IconArrowUp className={styles['event__icon-move']}/>
+                    </motion.button>
+                    }
+
 
 
                 <div className={styles['event__left-section']}>
@@ -113,14 +137,23 @@ function Event(props) {
 
                 <div className={styles['event__right-section']}></div>
 
-                {isMobile && isSelect && <button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
-                                                   onClick={handleOnClickDown}>
-                    <assets.IconArrowDown className={styles['event__icon-move']}/>
-                </button>
-                }
+                    {isMobile && isSelect && <motion.button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
+                                                    onClick={handleOnClickDown}
+                                                    initial={'hide'}
+                                                    animate={'show'}
+                                                    exit={'hide'}
+                                                    variants={moveButtonsVariants}
+                                                    >
+                        <assets.IconArrowDown className={styles['event__icon-move']}/>
+                    </motion.button>
+                    }
+
+            
 
             </div>
         </div>
+        </AnimatePresence>  
+
     );
 
 
