@@ -29,7 +29,7 @@ function Event(props) {
     const dispatcher = useDispatch();
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
-    let classesEventContent = `${styles['event__content']} ${(isSelect && styles['event__content--selected'])} `;
+    let classesEventContent = `${styles['event__content']} `;
     let classesEventTitle = `${styles['event__title']} `;
     let classesEventTime = `${styles['event__time']} `;
 
@@ -56,6 +56,8 @@ function Event(props) {
         classesEventTitle += styles['event__title--checked'];
         classesEventTime += styles['event__time--checked'];
     }
+
+    if (isSelect) classesEventContent += ` ${styles['event__content--selected']} `;
 
     let hoursAndMinutes = '99:99';
     if (timeValue) {

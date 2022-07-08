@@ -152,6 +152,7 @@
   //}
   
   &__content--selected {
+    opacity: 1;
     border-color: var.$color-primary--orange;
     
     cursor: pointer;
