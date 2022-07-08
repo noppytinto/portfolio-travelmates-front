@@ -201,9 +201,12 @@ Event.propTypes = {
     isCompleted: PropTypes.bool,
 }
 
-function propsAreEqual(prev, next) {
-    return (prev.index === next.index) && (prev.isCompleted === next.isCompleted);
-}
+// function propsAreEqual(prev, next) {
+//     console.log('prev id and next id are equal:', prev.id === next.id);
+//     console.log('prev index and next index are equal:', prev.index === next.index && prev.isForceSelect === next.isForceSelect);
+//     // return (prev.id === next.id) && (prev.index === next.index && prev.isForceSelect === next.isForceSelect);
+//     return (prev.id === next.id);
+// }
 
 // export default Event;
 // export default React.memo(Event, propsAreEqual);

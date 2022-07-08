@@ -34,6 +34,7 @@ function Timeline(props) {
                            onClickUp={handleOnClickUp}
                            onClickDown={handleOnClickDown}
                            isForceSelect={(currentSelectedEventIndex.current === index) ? true : false}
+                           id={event.id}
                     />
                     <EventDropZone index={index + 1} onDropped={handleOnDropped}/>
                 </li>
