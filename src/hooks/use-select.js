@@ -1,35 +1,35 @@
-import {useCallback, useEffect, useState} from "react";
-import {isMobile} from "react-device-detect";
+import {useCallback, useState} from "react";
 
-function useSelect(eventRef) {
-    const [isSelected, setIsSelected] = useState(false);
 
-    const handleOnClickEvents = useCallback((ev) => {
-        if (ev.target === eventRef.current) {
-            console.log('clicked inside');
+function useSelect(targetElementRef) {
+    const [isSelect, setIsSelect] = useState(false);
+
+    const handleOnClick = useCallback((ev) => {
+        const isTargetElement = ev.target === targetElementRef.current;
+
+        if (isTargetElement) {
+            console.log('clicked inside element');
         }
         else {
-            console.log('clicked outside');
-            setIsSelected(false);
-            document.removeEventListener('click', handleOnClickEvents);
+            console.log('clicked outside element');
+            setIsSelect(false);
+            document.removeEventListener('click', handleOnClick);
         }
 
-    }, []);
+    }, [setIsSelect]);
 
-    function handleOnSelect(ev) {
-        if (!isMobile) return;
+    function triggerSelection(ev) {
+        // Add event listener to current clicked element.
+        // The event listener, is used to listens for outside clicks.
+        if (!isSelect) {
+            document.removeEventListener('click', handleOnClick);
+            document.addEventListener('click', handleOnClick);
 
-        if (!isSelected) {
-            document.removeEventListener('click', handleOnClickEvents);
-            document.addEventListener('click', handleOnClickEvents);
-
-            setIsSelected(true);
+            setIsSelect(true);
         }
     }
 
-
-
-    return [isSelected, setIsSelected, handleOnSelect];
+    return [isSelect, setIsSelect, triggerSelection, handleOnClick];
 }//
 
 export default useSelect;
