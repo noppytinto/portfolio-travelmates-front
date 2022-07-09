@@ -19,23 +19,13 @@ function Timeline(props) {
     ///////////////////////////////////
     return (
         <ul className={styles['timeline']}>
-            {events.map((event, index) =>
+            {events.map((event, i) =>
                 <li key={event.id}>
-                    {(index === 0) && <EventDropZone index={index} onDropped={handleOnDropped}/>}
+                    {(i === 0) && <EventDropZone index={i} onDropped={handleOnDropped}/>}
 
-                    <Event title={event.title}
-                           color={event.color}
-                           isCompleted={event.isCompleted}
-                           time={event.time}
-                           revealTime={event.revealTime}
-                           index={index}
-                           onCheckEvent={handleOnCheckEvent}
-                           onClickUp={handleOnClickUp}
-                           onClickDown={handleOnClickDown}
-                           isForceSelect={(index === currentSelectedEventIndex.current) ? true : false}
-                           // id={event.id}
-                    />
-                    <EventDropZone index={index + 1} onDropped={handleOnDropped}/>
+                    <Event {...arrangeProps(event, i)} />
+
+                    <EventDropZone index={i + 1} onDropped={handleOnDropped}/>
                 </li>
             )}
         </ul>
@@ -46,36 +36,50 @@ function Timeline(props) {
     // FUNCTIONS
     ///////////////////////////////////
     function handleOnClickUp(currentEventIndex, triggerUnselection) {
-        if ( ! _positionIsValid(currentEventIndex - 1)) return;
+        if ( ! positionIsValid(currentEventIndex - 1)) return;
 
         triggerUnselection();
-        _moveEvent(currentEventIndex, currentEventIndex - 1)
+        moveEvent(currentEventIndex, currentEventIndex - 1)
     }
 
     function handleOnClickDown(currentEventIndex, triggerUnselection) {
-        if ( ! _positionIsValid(currentEventIndex + 1)) return;
+        if ( ! positionIsValid(currentEventIndex + 1)) return;
 
         triggerUnselection();
-        _moveEvent(currentEventIndex, currentEventIndex + 1)
+        moveEvent(currentEventIndex, currentEventIndex + 1)
     }
 
     function handleOnDropped(currentPosition, newPosition) {
         console.log('moving from:', currentPosition, ' to:', newPosition);
         dispatcher(userActions.moveEvent({ currentPosition, newPosition, }));
-
     }
 
     function handleOnCheckEvent(index, checked) {
         props.onCheckEvent(index, checked);
     }
 
-    function _moveEvent(from, to) {
+    function moveEvent(from, to) {
         currentSelectedEventIndex.current = to;
-        dispatcher(userActions.moveEvent({ from, to}));
+        dispatcher(userActions.moveEvent({ from, to }));
     }
 
-    function _positionIsValid(newPosition) {
-        return newPosition >= 0 && newPosition < events.length;
+    function positionIsValid(newPosition) {
+        return (newPosition >= 0) && (newPosition < events.length);
+    }
+
+    function arrangeProps(event, index) {
+        return {
+            title: event.title,
+            color: event.color,
+            isCompleted: event.isCompleted,
+            time: event.time,
+            revealTime: event.revealTime,
+            index: index,
+            onCheckEvent: handleOnCheckEvent,
+            onClickUp: handleOnClickUp,
+            onClickDown: handleOnClickDown,
+            isForceSelect: (index === currentSelectedEventIndex.current) ? true : false,
+        }
     }
 
     // function handleDragEnd(event) {
@@ -88,6 +92,8 @@ function Timeline(props) {
     //     //   console.log('element dropped');
     //     // }
     // }
+
+
 }// 
 
 export default Timeline;
