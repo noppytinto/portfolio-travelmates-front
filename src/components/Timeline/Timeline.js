@@ -22,7 +22,7 @@ function Timeline(props) {
     return (
         <ul className={styles['timeline']}>
             {events.map((event, index) =>
-                <li key={uuidv4()}>
+                <li key={event.id}>
                     {(index === 0) && <EventDropZone index={index} onDropped={handleOnDropped}/>}
 
                     <Event title={event.title}
@@ -33,8 +33,8 @@ function Timeline(props) {
                            onCheckEvent={handleOnCheckEvent}
                            onClickUp={handleOnClickUp}
                            onClickDown={handleOnClickDown}
-                           isForceSelect={(currentSelectedEventIndex.current === index) ? true : false}
-                           id={event.id}
+                           isForceSelect={(index === currentSelectedEventIndex.current) ? true : false}
+                           // id={event.id}
                     />
                     <EventDropZone index={index + 1} onDropped={handleOnDropped}/>
                 </li>
@@ -52,6 +52,8 @@ function Timeline(props) {
         const currentPosition = eventIndex;
         if (newPosition < 0) return;
 
+        console.log('moving from:', currentPosition, ' to:', newPosition);
+
         document.removeEventListener('click', resetSelection);
         setIsSelect(false);
 
@@ -65,11 +67,13 @@ function Timeline(props) {
         const newPosition = eventIndex+1;
         const currentPosition = eventIndex;
         if (newPosition >= events.length) return;
+        
+        console.log('moving from:', currentPosition, ' to:', newPosition);
+
+        currentSelectedEventIndex.current = newPosition;
 
         document.removeEventListener('click', resetSelection);
         setIsSelect(false);
-
-        currentSelectedEventIndex.current = newPosition;
 
         dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
     }

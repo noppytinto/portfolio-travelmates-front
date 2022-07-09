@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import * as assets from '../../../utils/assets-manager'
 import React, {useEffect, useRef} from "react";
 import {useDispatch} from "react-redux";
-import { dragAndDropActions } from '../../../redux/slices/drag-and-drop-slice';
+import {dragAndDropActions} from '../../../redux/slices/drag-and-drop-slice';
 import {isMobile} from 'react-device-detect';
 import useSelect from "../../../hooks/use-select";
-import { AnimatePresence, motion } from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 import styles from './Event.module.scss';
 
 const moveButtonsVariants = {
-    show:{ scale: 1, transition: {duration: 0.2}},
-    hide:{ scale: 0, transition: {duration: 0.1}},
+    show: {scale: 1, transition: {duration: 0.2}},
+    hide: {scale: 0, transition: {duration: 0.1}},
 }
 
 
@@ -25,6 +25,10 @@ function Event(props) {
     const eventRef = useRef();
 
     const [isSelect, setIsSelect, triggerSelection, resetSelection] = useSelect(eventRef);
+
+    console.log('component rendered: ', props.title);
+
+    if (isSelect) console.log('component ', props.title , ' is selected');
 
     const dispatcher = useDispatch();
 
@@ -51,7 +55,7 @@ function Event(props) {
 
     }
 
-    if(isChecked) {
+    if (isChecked) {
         classesEventContent += styles['event__content--checked'];
         classesEventTitle += styles['event__title--checked'];
         classesEventTime += styles['event__time--checked'];
@@ -73,84 +77,89 @@ function Event(props) {
             // therefore we must trigger this selection somehow
             triggerSelection();
         }
-    }, [isMobile, isForceSelect]);
+    }, [isMobile, isForceSelect, eventIndex]);
 
 
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
-        <AnimatePresence>  
-        
-        <div className={classesEvent}   >
+        <AnimatePresence>
 
-            <div className={styles['event__indicator']}>
-                <p className={classesEventTime}>{hoursAndMinutes}</p>
+            <div className={classesEvent}>
 
-                {/*/////////////////////////////////*/}
-                {/* checkbox */}
-                {/*/////////////////////////////////*/}
-                <button className={styles['event__btn-check']} onClick={handleOnCheck}>
-                    {isChecked ?
-                        <assets.IconRadioChecked className={`${styles['event__checkbox']} ${styles['event__checked']}`}/>
-                        :
-                        <assets.IconRadioUnchecked className={styles['event__checkbox']}/>
-                    }
-                </button>
-            </div>
+                <div className={styles['event__indicator']}>
+                    <p className={classesEventTime}>{hoursAndMinutes}</p>
 
-            {/*/////////////////////////////////*/}
-            {/* content */}
-            {/*/////////////////////////////////*/}
-            <div className={classesEventContent}
-                 draggable
-                 onDragStart={handleOnDragStart}
-                 ref={eventRef}
-                 onClick={handleOnClick}
-                 >
-
-
-                {isMobile && isSelect &&
-                    <motion.button className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
-                                   onClick={handleOnClickUp}
-                                   initial={'hide'}
-                                   animate={'show'}
-                                   exit={'hide'}
-                                   variants={moveButtonsVariants}>
-
-                        <assets.IconArrowUp className={styles['event__icon-move']}/>
-
-                    </motion.button>
-                }
-
-
-
-                <div className={styles['event__left-section']}>
-                    <p className={classesEventTitle}>{title}</p>
+                    {/*/////////////////////////////////*/}
+                    {/* checkbox */}
+                    {/*/////////////////////////////////*/}
+                    <button className={styles['event__btn-check']}
+                            onClick={handleOnCheck}>
+                        {isChecked ?
+                            <assets.IconRadioChecked
+                                className={`${styles['event__checkbox']} ${styles['event__checked']}`}/>
+                            :
+                            <assets.IconRadioUnchecked
+                                className={styles['event__checkbox']}/>
+                        }
+                    </button>
                 </div>
 
+                {/*/////////////////////////////////*/}
+                {/* content */}
+                {/*/////////////////////////////////*/}
+                <div className={classesEventContent}
+                     draggable
+                     onDragStart={handleOnDragStart}
+                     onDragEnd={handleOnDragEnd}
+                     ref={eventRef}
+                     onClick={handleOnClick}>
 
-                <div className={styles['event__right-section']}></div>
 
-                    {isMobile && isSelect && <motion.button className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
-                                                    onClick={handleOnClickDown}
-                                                    initial={'hide'}
-                                                    animate={'show'}
-                                                    exit={'hide'}
-                                                    variants={moveButtonsVariants}
-                                                    >
-                        <assets.IconArrowDown className={styles['event__icon-move']}/>
+                    {isMobile && isSelect &&
+                        <motion.button
+                            className={`${styles['event__btn-move']} ${styles['event__btn-up']}`}
+                            onClick={handleOnClickUp}
+                            initial={'hide'}
+                            animate={'show'}
+                            exit={'hide'}
+                            variants={moveButtonsVariants}>
+
+                            <assets.IconArrowUp
+                                className={styles['event__icon-move']}/>
+
+                        </motion.button>
+                    }
+
+
+                    <div className={styles['event__left-section']}>
+                        <p className={classesEventTitle}>{title}</p>
+                    </div>
+
+
+                    <div className={styles['event__right-section']}></div>
+
+                    {isMobile && isSelect && <motion.button
+                        className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
+                        onClick={handleOnClickDown}
+                        initial={'hide'}
+                        animate={'show'}
+                        exit={'hide'}
+                        variants={moveButtonsVariants}
+                    >
+                        <assets.IconArrowDown
+                            className={styles['event__icon-move']}/>
                     </motion.button>
                     }
 
-            
 
+                </div>
             </div>
-        </div>
-        </AnimatePresence>  
+
+        </AnimatePresence>
 
     );
-
 
 
     ///////////////////////////////////
@@ -176,7 +185,13 @@ function Event(props) {
         ev.dataTransfer.effectAllowed = "move";
         ev.dataTransfer.setData("text/plain", `${eventIndex}`);
 
+        ev.target.style.borderColor = '#F39200';
+
         dispatcher(dragAndDropActions.setData({eventIndex: eventIndex}));
+    }
+
+    function handleOnDragEnd(ev) {
+        ev.target.style.borderColor = 'transparent';
     }
 
     function handleOnCheck(ev) {
