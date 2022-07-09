@@ -56,7 +56,7 @@ const TextField = React.forwardRef((props, ref) => {
     // JSX
     ///////////////////////////////////
     return (
-        <div className={`${styles['textfield']}`}>
+        <div className={`${styles['textfield']} ${props.className}`}>
 
             <label className={classesLabel}
                    htmlFor={name}

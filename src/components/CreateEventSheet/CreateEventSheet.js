@@ -3,38 +3,15 @@ import BottomSheet from "../reusables/BottomSheet/BottomSheet";
 import TextField from "../reusables/TextField/TextField";
 import Card from "../reusables/Card/Card";
 import Button from "../reusables/Button/Button";
-import React from 'react';
+import React, {useRef} from 'react';
 import styles from './CreateEventSheet.module.scss';
 
 
 function CreateEventSheet(props) {
-
-    ///////////////////////////////////
-    // EFFECTS
-    ///////////////////////////////////
     const titleRef = React.createRef();
+    const toggleTimeRef = useRef();
+    const timePickerRef = useRef();
 
-    ///////////////////////////////////
-    // FUNCTIONS
-    ///////////////////////////////////
-    function handleOnClickCreateEvent(ev) {
-        console.log('event created');
-        const title = titleRef.current.value;
-        if (!title) return;
-
-        const createdEvent = {
-            id: uuidv4(),
-            title: title,
-            time: Date.now(),
-            color: '',
-            files: [],
-            images: [],
-            isImportant: false,
-            isCompleted: false,
-        }
-
-        props.onClickCreateEvent(ev, createdEvent);
-    }
 
 
     ///////////////////////////////////
@@ -44,7 +21,24 @@ function CreateEventSheet(props) {
         <BottomSheet className={styles['bottom-sheet']} onClickOutside={props.onClickOutside} >
             <div className={styles['create-event-sheet']}>
                 <Card className={styles['create-event-sheet__card']}>
-                    <TextField label={'Title'} name={'title'} ref={titleRef}/>
+                    <form className={styles['create-event-sheet__form']}>
+                        <TextField className={styles['create-event-sheet__textfield']}
+                                   label={'Title'} name={'title'} ref={titleRef}/>
+
+
+                        <label htmlFor={'toggle-switch'}> show time: </label>
+                        <label className="toggle-switch">
+                            <input id={'toggle-switch'} type="checkbox" ref={toggleTimeRef}/>
+                            <span className="toggle-slider round"></span>
+                        </label>
+                        <br />
+                        <br />
+                        <label htmlFor="event-time">time :</label>
+                        <input type="time" id="event-time" name="eventTime" ref={timePickerRef}  pattern="[0-9]{2}:[0-9]{2}"/>
+
+
+
+                    </form>
 
                 </Card>
             </div>
@@ -55,6 +49,43 @@ function CreateEventSheet(props) {
             </footer>
         </BottomSheet>
     );
+
+
+    ///////////////////////////////////
+    // FUNCTIONS
+    ///////////////////////////////////
+    function handleOnClickCreateEvent(ev) {
+        console.log('event created');
+        const title = titleRef.current.value;
+        const revealTime = toggleTimeRef.current.checked;
+        const time = timePickerRef.current.value;
+
+        if (!title) return;
+
+        const timeArray = time.split(':');
+        const hours = timeArray[0];
+        const minutes = timeArray[1];
+        const dateTime = (new Date(1990, 0, 1, hours, minutes)).getTime();
+
+        const createdEvent = {
+            id: uuidv4(),
+            title: title,
+            time: dateTime ?? 0,
+            color: '',
+            files: [],
+            images: [],
+            isImportant: false,
+            isCompleted: false,
+            revealTime: revealTime,
+        }
+
+        props.onClickCreateEvent(ev, createdEvent);
+    }
+
+
+    function handleOnChangeToggle(ev) {
+
+    }
 }// CreateEventSheet
 
 export default CreateEventSheet;

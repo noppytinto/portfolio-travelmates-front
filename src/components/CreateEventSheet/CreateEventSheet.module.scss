@@ -9,6 +9,17 @@
     padding: 2em;
   }
   
+  &__form {
+    //display: flex;
+    //flex-direction: column;
+    //justify-content: space-between;
+    //gap: 1em;
+  }
+  
+  &__textfield {
+    margin-bottom: 2em;
+  }
+  
   &__footer {
     height: 100px;
     background-color: #fff;
