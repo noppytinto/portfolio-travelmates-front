@@ -19,8 +19,8 @@ const userSlice = createSlice({
         },
 
         addEvent(state, action) {
-            const oldEvents = state.userData.events;
-            const updatedEvents = [...oldEvents];
+            const currentEvents = state.userData.events;
+            const updatedEvents = [...currentEvents];
             updatedEvents.push(action.payload.newEvent);
             state.userData.events = updatedEvents;
         },
@@ -29,19 +29,19 @@ const userSlice = createSlice({
             const currentPosition = action.payload.from;
             const newPosition = action.payload.to;
 
-            const oldEvents = state.userData.events;
-            moveInArray(oldEvents, currentPosition, newPosition);
+            const currentEvents = state.userData.events;
+            _reorderEvents(currentEvents, currentPosition, newPosition);
 
-            const updatedEvents = [...oldEvents];
-            state.userData.events = updatedEvents;
+            const newEvents = [...currentEvents];
+            state.userData.events = newEvents;
         },
 
         checkEvent(state, action) {
             const isChecked = action.payload.isChecked;
             const index = action.payload.index;
 
-            const oldEvents = state.userData.events;
-            const updatedEvents = [...oldEvents];
+            const currentEvents = state.userData.events;
+            const updatedEvents = [...currentEvents];
             updatedEvents[index].isCompleted = isChecked;
 
             state.userData.events = updatedEvents;
@@ -50,7 +50,7 @@ const userSlice = createSlice({
     },
 });
 
-function moveInArray(arr, from, to) {
+function _reorderEvents(arr, from, to) {
 
     // Make sure a valid array is provided
     if (Object.prototype.toString.call(arr) !== '[object Array]') {
