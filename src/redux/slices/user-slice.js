@@ -88,6 +88,7 @@ function getMockEvents() {
         images: [],
         isImportant: false,
         isCompleted: false,
+        revealTime: true,
     }
 
     const event_2 = {
@@ -99,6 +100,7 @@ function getMockEvents() {
         images: [],
         isImportant: false,
         isCompleted: false,
+        revealTime: true,
     }
 
     const event_3 = {
@@ -110,6 +112,7 @@ function getMockEvents() {
         images: [],
         isImportant: false,
         isCompleted: false,
+        revealTime: false,
     }
 
     const event_4 = {
@@ -121,6 +124,7 @@ function getMockEvents() {
         images: [],
         isImportant: false,
         isCompleted: false,
+        revealTime: true,
     }
 
     const event_5 = {
@@ -132,6 +136,7 @@ function getMockEvents() {
         images: [],
         isImportant: false,
         isCompleted: false,
+        revealTime: false,
     }
 
     const events = [];

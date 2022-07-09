@@ -9,6 +9,7 @@ export default class EventBuilder {
     images;
     isImportant;
     isCompleted;
+    revealTime;
 
     constructor (id, title) {
         this.id = id;
@@ -19,6 +20,7 @@ export default class EventBuilder {
         this.images = [];
         this.isImportant = false;
         this.isCompleted = false;
+        this.revealTime = false;
     }
 
     setTime(time = 0) {
@@ -48,6 +50,11 @@ export default class EventBuilder {
 
     setIsCompleted(value = false) {
         this.isCompleted = value;
+        return this;
+    }
+
+    setRevealTime(value = false) {
+        this.revealTime = value;
         return this;
     }
 

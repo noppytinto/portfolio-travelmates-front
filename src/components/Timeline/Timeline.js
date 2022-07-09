@@ -3,9 +3,7 @@ import EventDropZone from './EventDropZone/EventDropZone';
 import Event from '../../components/reusables/Event/Event';
 import { useDispatch } from "react-redux";
 import { userActions } from '../../redux/slices/user-slice';
-import {isMobile} from 'react-device-detect';
-import { v4 as uuidv4 } from 'uuid';
-
+// import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Timeline.module.scss';
 
@@ -29,6 +27,7 @@ function Timeline(props) {
                            color={event.color}
                            isCompleted={event.isCompleted}
                            time={event.time}
+                           revealTime={event.revealTime}
                            index={index}
                            onCheckEvent={handleOnCheckEvent}
                            onClickUp={handleOnClickUp}

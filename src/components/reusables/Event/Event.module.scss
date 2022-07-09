@@ -9,7 +9,7 @@
   &__indicator {
     position: absolute;
     top: 50%;
-    left: -4rem;
+    left: -1rem;
     transform: translateY(-50%);
 
     display: flex;
@@ -20,13 +20,11 @@
 
   &__time {
     transition: all .2s;
-
-  }
-
-  &__time--checked {
     opacity: .5;
-  }
+    font-weight: 500;
 
+  }
+  
   &__btn-check {
     width: 30px;
     height: 30px;
@@ -51,7 +49,7 @@
 
   &__content {
     position: relative;
-    margin-left: 1.2rem;
+    margin-left: 1.5rem;
     padding: .8em 1.2em;
     display: flex;
     align-items: center;
@@ -107,15 +105,15 @@
   
   &__btn-up {
     position: absolute;
-    top: -80%;
-    right: 0;
+    top: -95%;
+    right: 4%;
     
   }
   
   &__btn-down {
     position: absolute;
-    bottom: -80%;
-    right: 0;
+    bottom: -95%;
+    right: 4%;
     
   }
   

@@ -16,6 +16,7 @@ export default class Event {
     images;
     isImportant;
     isCompleted;
+    revealTime;
     owner;
 
     constructor (builder) {
@@ -27,6 +28,7 @@ export default class Event {
         this.images = builder.images;
         this.isImportant = builder.isImportant;
         this.isCompleted = builder.isCompleted;
+        this.revealTime = builder.revealTime;
     }
 
     // getId() {

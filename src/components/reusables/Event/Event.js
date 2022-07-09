@@ -26,6 +26,7 @@ function Event(props) {
     const title = props.title ?? '';
     const eventIndex = props.index;
     const timeValue = props.time ?? 0;
+    const revealTime = props.revealTime ?? false;
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
     const isForceSelect = (props.isForceSelect) || false;
@@ -61,8 +62,6 @@ function Event(props) {
             <div className={classesEvent}>
 
                 <div className={styles['event__indicator']}>
-                    <p className={classesEventTime}>{hoursAndMinutes}</p>
-
                     {/*/////////////////////////////////*/}
                     {/* checkbox */}
                     {/*/////////////////////////////////*/}
@@ -110,7 +109,10 @@ function Event(props) {
                     </div>
 
 
-                    <div className={styles['event__right-section']}></div>
+                    <div className={styles['event__right-section']}>
+                        {revealTime && <p className={classesEventTime}>{hoursAndMinutes}</p>}
+
+                    </div>
 
                     {isMobile && isSelect && <motion.button
                         className={`${styles['event__btn-move']} ${styles['event__btn-down']}`}
@@ -197,7 +199,6 @@ function Event(props) {
         if (isChecked) {
             classesEventContent += styles['event__content--checked'];
             classesEventTitle += styles['event__title--checked'];
-            classesEventTime += styles['event__time--checked'];
         }
 
         if (isSelect) classesEventContent += ` ${styles['event__content--selected']} `;
@@ -221,6 +222,7 @@ Event.propTypes = {
     time: PropTypes.number,
     isCompleted: PropTypes.bool,
     isForceSelect: PropTypes.bool,
+    revealTime: PropTypes.bool,
 }
 
 // function propsAreEqual(prev, next) {
