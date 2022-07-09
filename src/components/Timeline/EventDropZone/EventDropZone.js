@@ -24,12 +24,11 @@ function EventDropZone(props) {
     ///////////////////////////////////
     return (
         <div className={`${styles['event-drop-zone']} ${props.className}`}
-             onDragOver={handleDragOver}
+             onDragOver={handleOnDragOver}
              onDrop={handleOnDrop}
              onDragEnter={handleOnDragEnter}
              onDragLeave={handleOnDragLeave}
              style={dropStyle}
-
              />
     );
 
@@ -46,8 +45,8 @@ function EventDropZone(props) {
         //        (dropIndex < eventIndex);
     }
 
-    function handleDragOver(ev) {
-        ev.preventDefault();
+    function handleOnDragOver(ev) {
+        ev.preventDefault(); // for specify drop target
         ev.stopPropagation();
 
         // set dropEffect to copy i.e copy of the source item
@@ -56,10 +55,12 @@ function EventDropZone(props) {
     }
 
     function handleOnDragEnter(ev) {
-        ev.preventDefault();
+        ev.preventDefault(); // for specify drop target
         ev.stopPropagation();
 
-        if ( ! _canDrag(eventIndex, currentDropZoneIndex)) return;
+        console.log('something has been dragged over me: ', ev.dataTransfer);
+
+        if ( ! canDrag(eventIndex, currentDropZoneIndex)) return;
 
         console.log('drag entered');
         setIsDragOver(true);
@@ -69,7 +70,7 @@ function EventDropZone(props) {
         ev.preventDefault();
         ev.stopPropagation();
 
-        if ( ! _canDrag(eventIndex, currentDropZoneIndex)) return;
+        if ( ! canDrag(eventIndex, currentDropZoneIndex)) return;
 
         console.log('drag left');
         setIsDragOver(false);
@@ -79,7 +80,7 @@ function EventDropZone(props) {
         ev.preventDefault();
         ev.stopPropagation();
 
-        if ( ! _canDrag(eventIndex, currentDropZoneIndex)) return;
+        if ( ! canDrag(eventIndex, currentDropZoneIndex)) return;
 
 
         // Get the id of the target and add the moved element to the target's DOM
@@ -91,7 +92,7 @@ function EventDropZone(props) {
         props.onDropped(eventIndex, (eventIndex>currentDropZoneIndex) ? currentDropZoneIndex: currentDropZoneIndex-1);
     }
 
-    function _canDrag(from, to) {
+    function canDrag(from, to) {
         if (to === from) return false;
         if (to === from+1) return false;
 

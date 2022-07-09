@@ -17,29 +17,24 @@ function TimelinePage(props) {
     const [showBottomSheet, setShowBottomSheet] = useState(false);
 
 
-
     ///////////////////////////////////
     // JSX
     ///////////////////////////////////
     return (
         <div className={styles['timeline-page']}>
-            <Timeline events={events} onCheckEvent={handleOnCheckEvent}/>
+            <Timeline events={events} onCheckEvent={handleOnCheckEvent} onReorder={handleOnReorder}/>
 
             <FloatingButton className={styles['timeline-page__btn-add']}
                             onClick={handleAddEventButton}>
-
-                <assets.IconAdd className={styles['timelin-pagee__icon-add']} />
-
+                <assets.IconAdd className={styles['timeline-page__icon-add']} />
             </FloatingButton>
 
             {showBottomSheet &&
-                <CreateEventSheet onClickOutside={() => setShowBottomSheet(false)}
-                    onClickCancel={() => setShowBottomSheet(false)}
-                    onClickCreateEvent={handleOnClickCreateEvent}
-                />
+                <CreateEventSheet onClickOutside={closeSheet}
+                                  onClickCancel={closeSheet}
+                                  onClickCreateEvent={handleOnClickCreateEvent} />
             }
         </div>
-
     );
 
 
@@ -48,12 +43,12 @@ function TimelinePage(props) {
     ///////////////////////////////////
     function handleAddEventButton(ev) {
         // show bottom-sheet
-        console.log('bottom sheet opened');
+        // console.log('bottom sheet opened');
         setShowBottomSheet(!showBottomSheet);
     }
 
     function handleOnClickCreateEvent(ev, createdEvent) {
-        console.log('event created:', createdEvent);
+        // console.log('event created:', createdEvent);
         dispatcher(userActions.addEvent({ newEvent: createdEvent }));
         setShowBottomSheet(false);
     }
@@ -61,6 +56,14 @@ function TimelinePage(props) {
     function handleOnCheckEvent(index, checked) {
         dispatcher(userActions.checkEvent({ index, isChecked: checked }));
 
+    }
+
+    function closeSheet(ev) {
+        setShowBottomSheet(false);
+    }
+
+    function handleOnReorder(from, to) {
+        dispatcher(userActions.moveEvent({ from, to }));
     }
 
 }// TimelinePage

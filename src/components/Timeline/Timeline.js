@@ -1,8 +1,6 @@
 import React, {useRef} from 'react';
 import EventDropZone from './EventDropZone/EventDropZone';
 import Event from '../../components/reusables/Event/Event';
-import { useDispatch } from "react-redux";
-import { userActions } from '../../redux/slices/user-slice';
 // import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Timeline.module.scss';
@@ -10,8 +8,8 @@ import styles from './Timeline.module.scss';
 
 function Timeline(props) {
     const events = props.events ?? [];
-    const dispatcher = useDispatch();
     const currentSelectedEventIndex = useRef(-1);
+
 
 
     ///////////////////////////////////
@@ -21,7 +19,7 @@ function Timeline(props) {
         <ul className={styles['timeline']}>
             {events.map((event, i) =>
                 <li key={event.id}>
-                    {(i === 0) && <EventDropZone index={i} onDropped={handleOnDropped}/>}
+                    {(i === 0) && <EventDropZone index={i} onDropped={handleOnDropped} />}
 
                     <Event {...arrangeProps(event, i)} />
 
@@ -50,17 +48,21 @@ function Timeline(props) {
     }
 
     function handleOnDropped(currentPosition, newPosition) {
-        console.log('moving from:', currentPosition, ' to:', newPosition);
-        dispatcher(userActions.moveEvent({ currentPosition, newPosition, }));
+        // console.log('moving from:', currentPosition, ' to:', newPosition);
+        moveEvent(currentPosition, newPosition)
     }
 
     function handleOnCheckEvent(index, checked) {
         props.onCheckEvent(index, checked);
     }
 
+    function handleOnDragStarted(eventIndex) {
+        console.log('drag of event:', eventIndex, ' has started');
+    }
+
     function moveEvent(from, to) {
         currentSelectedEventIndex.current = to;
-        dispatcher(userActions.moveEvent({ from, to }));
+        props.onReorder(from, to);
     }
 
     function positionIsValid(newPosition) {
@@ -78,6 +80,7 @@ function Timeline(props) {
             onCheckEvent: handleOnCheckEvent,
             onClickUp: handleOnClickUp,
             onClickDown: handleOnClickDown,
+            onDragStarted: handleOnDragStarted,
             isForceSelect: (index === currentSelectedEventIndex.current) ? true : false,
         }
     }

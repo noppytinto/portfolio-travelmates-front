@@ -160,6 +160,8 @@ function Event(props) {
 
         ev.target.style.borderColor = '#F39200';
 
+        props.onDragStarted(eventIndex);
+
         dispatcher(dragAndDropActions.setData({eventIndex: eventIndex}));
     }
 
