@@ -45,24 +45,18 @@ function Timeline(props) {
     ///////////////////////////////////
     // FUNCTIONS
     ///////////////////////////////////
-    function handleOnClickUp(eventIndex) {
-        const newPosition = eventIndex-1;
-        const currentPosition = eventIndex;
-        if (newPosition < 0) return;
+    function handleOnClickUp(currentEventIndex, triggerUnselection) {
+        if ( ! _positionIsValid(currentEventIndex - 1)) return;
 
-        currentSelectedEventIndex.current = newPosition;
-
-        dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
+        triggerUnselection();
+        _moveEvent(currentEventIndex, currentEventIndex - 1)
     }
 
-    function handleOnClickDown(eventIndex) {
-        const newPosition = eventIndex+1;
-        const currentPosition = eventIndex;
-        if (newPosition >= events.length) return;
+    function handleOnClickDown(currentEventIndex, triggerUnselection) {
+        if ( ! _positionIsValid(currentEventIndex + 1)) return;
 
-        currentSelectedEventIndex.current = newPosition;
-
-        dispatcher(userActions.moveEvent({ currentPosition, newPosition}));
+        triggerUnselection();
+        _moveEvent(currentEventIndex, currentEventIndex + 1)
     }
 
     function handleOnDropped(currentPosition, newPosition) {
@@ -73,6 +67,15 @@ function Timeline(props) {
 
     function handleOnCheckEvent(index, checked) {
         props.onCheckEvent(index, checked);
+    }
+
+    function _moveEvent(from, to) {
+        currentSelectedEventIndex.current = to;
+        dispatcher(userActions.moveEvent({ from, to}));
+    }
+
+    function _positionIsValid(newPosition) {
+        return newPosition >= 0 && newPosition < events.length;
     }
 
     // function handleDragEnd(event) {

@@ -26,8 +26,8 @@ const userSlice = createSlice({
         },
 
         moveEvent(state, action) {
-            const currentPosition = action.payload.currentPosition;
-            const newPosition = action.payload.newPosition;
+            const currentPosition = action.payload.from;
+            const newPosition = action.payload.to;
 
             const oldEvents = state.userData.events;
             moveInArray(oldEvents, currentPosition, newPosition);

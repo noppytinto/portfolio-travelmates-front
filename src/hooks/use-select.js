@@ -33,7 +33,16 @@ function useSelect(targetElementRef) {
         }
     }
 
-    return [isSelect, setIsSelect, triggerSelection, handleOnClick];
+    function triggerUnselection(ev) {
+        // console.log('hook setup');
+
+        // Add event listener to current clicked element.
+        // The event listener, is used to listens for outside clicks.
+        document.removeEventListener('click', handleOnClick);
+        setIsSelect(false);
+    }
+
+    return [isSelect, setIsSelect, triggerSelection, triggerUnselection];
 }//
 
 export default useSelect;

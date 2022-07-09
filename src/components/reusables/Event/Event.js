@@ -20,7 +20,7 @@ function Event(props) {
 
     const dispatcher = useDispatch();
     const eventRef = useRef();
-    const [isSelect, setIsSelect, triggerSelection, resetSelection] = useSelect(eventRef);
+    const [isSelect, setIsSelect, triggerSelection, triggerUnselection] = useSelect(eventRef);
 
     const color = props.color ?? '';
     const title = props.title ?? '';
@@ -146,18 +146,12 @@ function Event(props) {
 
     function handleOnClickUp(ev) {
         ev.stopPropagation();
-
-        document.removeEventListener('click', resetSelection);
-        setIsSelect(false);
-        props.onClickUp(eventIndex);
+        props.onClickUp(eventIndex, triggerUnselection);
     }
 
     function handleOnClickDown(ev) {
         ev.stopPropagation();
-
-        document.removeEventListener('click', resetSelection);
-        setIsSelect(false);
-        props.onClickDown(eventIndex);
+        props.onClickDown(eventIndex, triggerUnselection);
     }
 
     function handleOnDragStart(ev) {
