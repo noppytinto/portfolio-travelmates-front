@@ -15,6 +15,13 @@ const moveButtonsVariants = {
 
 
 function Event(props) {
+    // console.log('component rendered: ', props.title);
+    // if (isSelect) console.log('component ', props.title , ' is selected');
+
+    const dispatcher = useDispatch();
+    const eventRef = useRef();
+    const [isSelect, setIsSelect, triggerSelection, resetSelection] = useSelect(eventRef);
+
     const color = props.color ?? '';
     const title = props.title ?? '';
     const eventIndex = props.index;
@@ -22,55 +29,20 @@ function Event(props) {
     const isChecked = props.isCompleted || false;
     const givenClasses = props.className;
     const isForceSelect = (props.isForceSelect) || false;
-    const eventRef = useRef();
-
-    const [isSelect, setIsSelect, triggerSelection, resetSelection] = useSelect(eventRef);
-
-    console.log('component rendered: ', props.title);
-
-    if (isSelect) console.log('component ', props.title , ' is selected');
-
-    const dispatcher = useDispatch();
 
     let classesEvent = `${styles['event']} ${givenClasses} `;
     let classesEventContent = `${styles['event__content']} `;
     let classesEventTitle = `${styles['event__title']} `;
     let classesEventTime = `${styles['event__time']} `;
-
-    switch (color) {
-        case 'orange':
-            classesEventContent += `${styles['event__content--orange']} `;
-            break;
-        case 'blue':
-            classesEventContent += `${styles['event__content--blue']} `;
-            break;
-        case 'green':
-            classesEventContent += `${styles['event__content--green']} `;
-            break;
-        case 'red':
-            classesEventContent += `${styles['event__content--red']} `;
-            break;
-        default :
-            break;
-
-    }
-
-    if (isChecked) {
-        classesEventContent += styles['event__content--checked'];
-        classesEventTitle += styles['event__title--checked'];
-        classesEventTime += styles['event__time--checked'];
-    }
-
-    if (isSelect) classesEventContent += ` ${styles['event__content--selected']} `;
-
+    
     let hoursAndMinutes = '99:99';
-    if (timeValue) {
-        const date = new Date(timeValue);
-        hoursAndMinutes =
-            _padTo2Digits(date.getHours()) + ':' + _padTo2Digits(date.getMinutes());
-    }
 
-    //
+    _setupComponent();
+
+
+    ///////////////////////////////////
+    // EFFECTS
+    ///////////////////////////////////
     useEffect(() => {
         if (isMobile && isForceSelect) {
             // when the event is moved, the "selected" state must be kept
@@ -158,7 +130,6 @@ function Event(props) {
             </div>
 
         </AnimatePresence>
-
     );
 
 
@@ -173,12 +144,18 @@ function Event(props) {
 
     function handleOnClickUp(ev) {
         ev.stopPropagation();
-        props.onClickUp(eventIndex, setIsSelect, resetSelection);
+
+        document.removeEventListener('click', resetSelection);
+        setIsSelect(false);
+        props.onClickUp(eventIndex);
     }
 
     function handleOnClickDown(ev) {
         ev.stopPropagation();
-        props.onClickDown(eventIndex, setIsSelect, resetSelection);
+
+        document.removeEventListener('click', resetSelection);
+        setIsSelect(false);
+        props.onClickDown(eventIndex);
     }
 
     function handleOnDragStart(ev) {
@@ -198,6 +175,40 @@ function Event(props) {
         props.onCheckEvent(eventIndex, !isChecked);
     }
 
+    function _setupComponent() {
+        switch (color) {
+            case 'orange':
+                classesEventContent += `${styles['event__content--orange']} `;
+                break;
+            case 'blue':
+                classesEventContent += `${styles['event__content--blue']} `;
+                break;
+            case 'green':
+                classesEventContent += `${styles['event__content--green']} `;
+                break;
+            case 'red':
+                classesEventContent += `${styles['event__content--red']} `;
+                break;
+            default :
+                break;
+
+        }
+
+        if (isChecked) {
+            classesEventContent += styles['event__content--checked'];
+            classesEventTitle += styles['event__title--checked'];
+            classesEventTime += styles['event__time--checked'];
+        }
+
+        if (isSelect) classesEventContent += ` ${styles['event__content--selected']} `;
+
+        if (timeValue) {
+            const date = new Date(timeValue);
+            hoursAndMinutes =
+                _padTo2Digits(date.getHours()) + ':' + _padTo2Digits(date.getMinutes());
+        }
+    }
+
     function _padTo2Digits(num) {
         return String(num).padStart(2, '0');
     }
@@ -209,6 +220,7 @@ Event.propTypes = {
     title: PropTypes.string,
     time: PropTypes.number,
     isCompleted: PropTypes.bool,
+    isForceSelect: PropTypes.bool,
 }
 
 // function propsAreEqual(prev, next) {
