@@ -3,8 +3,9 @@ import BottomSheet from "../reusables/BottomSheet/BottomSheet";
 import TextField from "../reusables/TextField/TextField";
 import Card from "../reusables/Card/Card";
 import Button from "../reusables/Button/Button";
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './CreateEventSheet.module.scss';
+import TextToggle from "../reusables/TextToggle/TextToggle";
 
 
 function CreateEventSheet(props) {
@@ -12,6 +13,7 @@ function CreateEventSheet(props) {
     const toggleTimeRef = useRef();
     const timePickerRef = useRef();
 
+    const [showTime, setShowTime] = useState(false);
 
 
     ///////////////////////////////////
@@ -23,19 +25,28 @@ function CreateEventSheet(props) {
                 <Card className={styles['create-event-sheet__card']}>
                     <form className={styles['create-event-sheet__form']}>
                         <TextField className={styles['create-event-sheet__textfield']}
-                                   label={'Title'} name={'title'} ref={titleRef}/>
+                                   label={'Title'}
+                                   name={'title'}
+                                   ref={titleRef}/>
 
 
-                        <label htmlFor={'toggle-switch'}> show time: </label>
-                        <label className="toggle-switch">
-                            <input id={'toggle-switch'} type="checkbox" ref={toggleTimeRef}/>
-                            <span className="toggle-slider round"></span>
-                        </label>
+                        <TextToggle label={'Show Time'} toggleText={['NO', 'YES']} onChange={handleOnChangeToggle}></TextToggle>
+
+
                         <br />
                         <br />
-                        <label htmlFor="event-time">time :</label>
-                        <input type="time" id="event-time" name="eventTime" ref={timePickerRef}  pattern="[0-9]{2}:[0-9]{2}"/>
+                        {showTime &&
+                            <>
+                                <TextField id="event-time"
+                                           type="time"
+                                           name="eventTime"
+                                           ref={timePickerRef}
+                                           pattern="[0-9]{2}:[0-9]{2}"
+                                           label={'Time'}
 
+                                />
+                            </>
+                        }
 
 
                     </form>
@@ -57,7 +68,7 @@ function CreateEventSheet(props) {
     function handleOnClickCreateEvent(ev) {
         console.log('event created');
         const title = titleRef.current.value;
-        const revealTime = toggleTimeRef.current.checked;
+        const revealTime = showTime;
         const time = timePickerRef.current.value;
 
         if (!title) return;
@@ -84,7 +95,7 @@ function CreateEventSheet(props) {
 
 
     function handleOnChangeToggle(ev) {
-
+        setShowTime(!showTime);
     }
 }// CreateEventSheet
 

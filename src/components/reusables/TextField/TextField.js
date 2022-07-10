@@ -1,56 +1,16 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from './TextField.module.scss';
 
-// const variants = {
-//     hidden: {
-//         opacity: 0,
-//         y: ['100%'],
-//         transition: {
-//             duration: 1,
-//         }
-//     },
-//     visible: {
-//         opacity: 1,
-//         y: 0,
-//         transition: {
-//             duration: 1,
-//         }
-//     },
-// }
+
+
 
 const TextField = React.forwardRef((props, ref) => {
     const type = props.type || 'text';
     const name = props.name;
     const label = props.label || '';
 
-    let classesLabel = `${styles['textfield__label']} ${styles['textfield__label--centered']}`;
-    let classesInput = `${styles['textfield__input']} ${styles['textfield__input--invisible']}`;
-    const [showInput, setShowInput] = useState(false);
 
-    if (showInput) {
-        classesLabel = `${styles['textfield__label']}`;
-        classesInput = `${styles['textfield__input']}`;
-    }
-
-    ///////////////////////////////////
-    // EFFECTS
-    ///////////////////////////////////
-
-
-
-    ///////////////////////////////////
-    // FUNCTIONS
-    ///////////////////////////////////
-    function handleOnClick(ev) {
-        setShowInput(true);
-    }
-
-    function handleOnBlur(ev) {
-        if (!ev.target.value) {
-            setShowInput(false);
-        }
-    }
 
     ///////////////////////////////////
     // JSX
@@ -58,22 +18,31 @@ const TextField = React.forwardRef((props, ref) => {
     return (
         <div className={`${styles['textfield']} ${props.className}`}>
 
-            <label className={classesLabel}
-                   htmlFor={name}
-                   onClick={handleOnClick}>
+            <label className={styles['textfield__label']}
+                   htmlFor={name}>
                 {label}
             </label>
 
-            <input className={classesInput}
+            <input {...props}
+                   className={styles['textfield__input']}
                    id={name}
                    type={type}
                    name={name}
                    ref={ref}
-                   onBlur={handleOnBlur}
             />
         </div>
     );
+
+
+    ///////////////////////////////////
+    // FUNCTIONS
+    ///////////////////////////////////
+
+
 });// TextField
+
+
+
 
 TextField.propTypes = {
     type: PropTypes.string,
@@ -83,3 +52,61 @@ TextField.propTypes = {
 
 
 export default TextField;
+
+
+
+// const TextField = React.forwardRef((props, ref) => {
+//     const type = props.type || 'text';
+//     const name = props.name;
+//     const label = props.label || '';
+//
+//     let classesLabel = `${styles['textfield__label']} ${styles['textfield__label--centered']}`;
+//     let classesInput = `${styles['textfield__input']} ${styles['textfield__input--invisible']}`;
+//     const [showInput, setShowInput] = useState(false);
+//
+//     if (showInput) {
+//         classesLabel = `${styles['textfield__label']}`;
+//         classesInput = `${styles['textfield__input']}`;
+//     }
+//
+//     ///////////////////////////////////
+//     // EFFECTS
+//     ///////////////////////////////////
+//
+//
+//
+//     ///////////////////////////////////
+//     // FUNCTIONS
+//     ///////////////////////////////////
+//     function handleOnClick(ev) {
+//         setShowInput(true);
+//     }
+//
+//     function handleOnBlur(ev) {
+//         if (!ev.target.value) {
+//             setShowInput(false);
+//         }
+//     }
+//
+//     ///////////////////////////////////
+//     // JSX
+//     ///////////////////////////////////
+//     return (
+//         <div className={`${styles['textfield']} ${props.className}`}>
+//
+//             <label className={classesLabel}
+//                    htmlFor={name}
+//                    onClick={handleOnClick}>
+//                 {label}
+//             </label>
+//
+//             <input className={classesInput}
+//                    id={name}
+//                    type={type}
+//                    name={name}
+//                    ref={ref}
+//                    onBlur={handleOnBlur}
+//             />
+//         </div>
+//     );
+// });// TextField
