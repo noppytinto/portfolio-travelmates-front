@@ -69,7 +69,7 @@ function CreateEventSheet(props) {
         console.log('event created');
         const title = titleRef.current.value;
         const revealTime = showTime;
-        const time = timePickerRef.current.value;
+        const time = timePickerRef.current?.value ?? '00:00';
 
         if (!title) return;
 
