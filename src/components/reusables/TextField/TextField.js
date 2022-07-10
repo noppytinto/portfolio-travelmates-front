@@ -3,13 +3,10 @@ import PropTypes from "prop-types";
 import styles from './TextField.module.scss';
 
 
-
-
 const TextField = React.forwardRef((props, ref) => {
     const type = props.type || 'text';
     const name = props.name;
     const label = props.label || '';
-
 
 
     ///////////////////////////////////

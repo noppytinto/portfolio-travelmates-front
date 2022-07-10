@@ -10,7 +10,6 @@ import TextToggle from "../reusables/TextToggle/TextToggle";
 
 function CreateEventSheet(props) {
     const titleRef = React.createRef();
-    const toggleTimeRef = useRef();
     const timePickerRef = useRef();
 
     const [showTime, setShowTime] = useState(false);
@@ -74,8 +73,8 @@ function CreateEventSheet(props) {
         if (!title) return;
 
         const timeArray = time.split(':');
-        const hours = timeArray[0];
-        const minutes = timeArray[1];
+        const hours = Number(timeArray[0]);
+        const minutes = Number(timeArray[1]);
         const dateTime = (new Date(1990, 0, 1, hours, minutes)).getTime();
 
         const createdEvent = {
@@ -94,7 +93,7 @@ function CreateEventSheet(props) {
     }
 
 
-    function handleOnChangeToggle(ev) {
+    function handleOnChangeToggle() {
         setShowTime(!showTime);
     }
 }// CreateEventSheet
